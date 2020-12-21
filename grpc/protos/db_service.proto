@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+service DbService {
+
+  rpc GetSymbols(google.protobuf.Empty) returns (stream SymbolPair);
+  rpc GetSymbol(Symbol) returns (SymbolPair);
+
+  rpc UpsertSymbols(stream SymbolPair) returns (RowCount);
+
+  rpc InsertPttTrend(TrendWithDefaultDate) returns (RowCount);
+
+  rpc InsertReunionTrend(TrendWithDefaultDate) returns (RowCount);
+
+  rpc InsertTwseOverBought(BoughtOrSold) returns (RowCount);
+  rpc InsertTwseOverSold(BoughtOrSold) returns (RowCount);
+
+  rpc InsertFugleOverBought(BoughtOrSold) returns (RowCount);
+  rpc InsertFugleOverSold(BoughtOrSold) returns (RowCount);
+
+}
+
+message Symbol {
+  string symbol = 1;
+}
+
+message SymbolPair {
+  string symbol = 1;
+  string name = 2;
+}
+
+message RowCount {
+  uint32 rowcount = 1;
+}
+
+message TrendWithDefaultDate {
+  string symbol = 1;
+  uint32 popularity = 2;
+}
+
+message BoughtOrSold {
+  string symbol = 1;
+  google.protobuf.Timestamp date = 2;
+  int32 quantity = 3;
+}

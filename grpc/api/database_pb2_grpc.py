@@ -2,11 +2,11 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import db_service_pb2 as db__service__pb2
+import database_pb2 as database__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-class DbServiceStub(object):
+class DatabaseStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -16,53 +16,53 @@ class DbServiceStub(object):
             channel: A grpc.Channel.
         """
         self.GetSymbols = channel.unary_stream(
-                '/DbService/GetSymbols',
+                '/Database/GetSymbols',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-                response_deserializer=db__service__pb2.SymbolPair.FromString,
+                response_deserializer=database__pb2.SymbolPair.FromString,
                 )
         self.GetSymbol = channel.unary_unary(
-                '/DbService/GetSymbol',
-                request_serializer=db__service__pb2.Symbol.SerializeToString,
-                response_deserializer=db__service__pb2.SymbolPair.FromString,
+                '/Database/GetSymbol',
+                request_serializer=database__pb2.Symbol.SerializeToString,
+                response_deserializer=database__pb2.SymbolPair.FromString,
                 )
         self.UpsertSymbols = channel.stream_unary(
-                '/DbService/UpsertSymbols',
-                request_serializer=db__service__pb2.SymbolPair.SerializeToString,
-                response_deserializer=db__service__pb2.RowCount.FromString,
+                '/Database/UpsertSymbols',
+                request_serializer=database__pb2.SymbolPair.SerializeToString,
+                response_deserializer=database__pb2.RowCount.FromString,
                 )
         self.InsertPttTrend = channel.unary_unary(
-                '/DbService/InsertPttTrend',
-                request_serializer=db__service__pb2.TrendWithDefaultDate.SerializeToString,
-                response_deserializer=db__service__pb2.RowCount.FromString,
+                '/Database/InsertPttTrend',
+                request_serializer=database__pb2.TrendWithDefaultDate.SerializeToString,
+                response_deserializer=database__pb2.RowCount.FromString,
                 )
         self.InsertReunionTrend = channel.unary_unary(
-                '/DbService/InsertReunionTrend',
-                request_serializer=db__service__pb2.TrendWithDefaultDate.SerializeToString,
-                response_deserializer=db__service__pb2.RowCount.FromString,
+                '/Database/InsertReunionTrend',
+                request_serializer=database__pb2.TrendWithDefaultDate.SerializeToString,
+                response_deserializer=database__pb2.RowCount.FromString,
                 )
         self.InsertTwseOverBought = channel.unary_unary(
-                '/DbService/InsertTwseOverBought',
-                request_serializer=db__service__pb2.BoughtOrSold.SerializeToString,
-                response_deserializer=db__service__pb2.RowCount.FromString,
+                '/Database/InsertTwseOverBought',
+                request_serializer=database__pb2.BoughtOrSold.SerializeToString,
+                response_deserializer=database__pb2.RowCount.FromString,
                 )
         self.InsertTwseOverSold = channel.unary_unary(
-                '/DbService/InsertTwseOverSold',
-                request_serializer=db__service__pb2.BoughtOrSold.SerializeToString,
-                response_deserializer=db__service__pb2.RowCount.FromString,
+                '/Database/InsertTwseOverSold',
+                request_serializer=database__pb2.BoughtOrSold.SerializeToString,
+                response_deserializer=database__pb2.RowCount.FromString,
                 )
         self.InsertFugleOverBought = channel.unary_unary(
-                '/DbService/InsertFugleOverBought',
-                request_serializer=db__service__pb2.BoughtOrSold.SerializeToString,
-                response_deserializer=db__service__pb2.RowCount.FromString,
+                '/Database/InsertFugleOverBought',
+                request_serializer=database__pb2.BoughtOrSold.SerializeToString,
+                response_deserializer=database__pb2.RowCount.FromString,
                 )
         self.InsertFugleOverSold = channel.unary_unary(
-                '/DbService/InsertFugleOverSold',
-                request_serializer=db__service__pb2.BoughtOrSold.SerializeToString,
-                response_deserializer=db__service__pb2.RowCount.FromString,
+                '/Database/InsertFugleOverSold',
+                request_serializer=database__pb2.BoughtOrSold.SerializeToString,
+                response_deserializer=database__pb2.RowCount.FromString,
                 )
 
 
-class DbServiceServicer(object):
+class DatabaseServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def GetSymbols(self, request, context):
@@ -120,61 +120,61 @@ class DbServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
 
-def add_DbServiceServicer_to_server(servicer, server):
+def add_DatabaseServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'GetSymbols': grpc.unary_stream_rpc_method_handler(
                     servicer.GetSymbols,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                    response_serializer=db__service__pb2.SymbolPair.SerializeToString,
+                    response_serializer=database__pb2.SymbolPair.SerializeToString,
             ),
             'GetSymbol': grpc.unary_unary_rpc_method_handler(
                     servicer.GetSymbol,
-                    request_deserializer=db__service__pb2.Symbol.FromString,
-                    response_serializer=db__service__pb2.SymbolPair.SerializeToString,
+                    request_deserializer=database__pb2.Symbol.FromString,
+                    response_serializer=database__pb2.SymbolPair.SerializeToString,
             ),
             'UpsertSymbols': grpc.stream_unary_rpc_method_handler(
                     servicer.UpsertSymbols,
-                    request_deserializer=db__service__pb2.SymbolPair.FromString,
-                    response_serializer=db__service__pb2.RowCount.SerializeToString,
+                    request_deserializer=database__pb2.SymbolPair.FromString,
+                    response_serializer=database__pb2.RowCount.SerializeToString,
             ),
             'InsertPttTrend': grpc.unary_unary_rpc_method_handler(
                     servicer.InsertPttTrend,
-                    request_deserializer=db__service__pb2.TrendWithDefaultDate.FromString,
-                    response_serializer=db__service__pb2.RowCount.SerializeToString,
+                    request_deserializer=database__pb2.TrendWithDefaultDate.FromString,
+                    response_serializer=database__pb2.RowCount.SerializeToString,
             ),
             'InsertReunionTrend': grpc.unary_unary_rpc_method_handler(
                     servicer.InsertReunionTrend,
-                    request_deserializer=db__service__pb2.TrendWithDefaultDate.FromString,
-                    response_serializer=db__service__pb2.RowCount.SerializeToString,
+                    request_deserializer=database__pb2.TrendWithDefaultDate.FromString,
+                    response_serializer=database__pb2.RowCount.SerializeToString,
             ),
             'InsertTwseOverBought': grpc.unary_unary_rpc_method_handler(
                     servicer.InsertTwseOverBought,
-                    request_deserializer=db__service__pb2.BoughtOrSold.FromString,
-                    response_serializer=db__service__pb2.RowCount.SerializeToString,
+                    request_deserializer=database__pb2.BoughtOrSold.FromString,
+                    response_serializer=database__pb2.RowCount.SerializeToString,
             ),
             'InsertTwseOverSold': grpc.unary_unary_rpc_method_handler(
                     servicer.InsertTwseOverSold,
-                    request_deserializer=db__service__pb2.BoughtOrSold.FromString,
-                    response_serializer=db__service__pb2.RowCount.SerializeToString,
+                    request_deserializer=database__pb2.BoughtOrSold.FromString,
+                    response_serializer=database__pb2.RowCount.SerializeToString,
             ),
             'InsertFugleOverBought': grpc.unary_unary_rpc_method_handler(
                     servicer.InsertFugleOverBought,
-                    request_deserializer=db__service__pb2.BoughtOrSold.FromString,
-                    response_serializer=db__service__pb2.RowCount.SerializeToString,
+                    request_deserializer=database__pb2.BoughtOrSold.FromString,
+                    response_serializer=database__pb2.RowCount.SerializeToString,
             ),
             'InsertFugleOverSold': grpc.unary_unary_rpc_method_handler(
                     servicer.InsertFugleOverSold,
-                    request_deserializer=db__service__pb2.BoughtOrSold.FromString,
-                    response_serializer=db__service__pb2.RowCount.SerializeToString,
+                    request_deserializer=database__pb2.BoughtOrSold.FromString,
+                    response_serializer=database__pb2.RowCount.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'DbService', rpc_method_handlers)
+            'Database', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class DbService(object):
+class Database(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
@@ -188,9 +188,9 @@ class DbService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/DbService/GetSymbols',
+        return grpc.experimental.unary_stream(request, target, '/Database/GetSymbols',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            db__service__pb2.SymbolPair.FromString,
+            database__pb2.SymbolPair.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -205,9 +205,9 @@ class DbService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/DbService/GetSymbol',
-            db__service__pb2.Symbol.SerializeToString,
-            db__service__pb2.SymbolPair.FromString,
+        return grpc.experimental.unary_unary(request, target, '/Database/GetSymbol',
+            database__pb2.Symbol.SerializeToString,
+            database__pb2.SymbolPair.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -222,9 +222,9 @@ class DbService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.stream_unary(request_iterator, target, '/DbService/UpsertSymbols',
-            db__service__pb2.SymbolPair.SerializeToString,
-            db__service__pb2.RowCount.FromString,
+        return grpc.experimental.stream_unary(request_iterator, target, '/Database/UpsertSymbols',
+            database__pb2.SymbolPair.SerializeToString,
+            database__pb2.RowCount.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -239,9 +239,9 @@ class DbService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/DbService/InsertPttTrend',
-            db__service__pb2.TrendWithDefaultDate.SerializeToString,
-            db__service__pb2.RowCount.FromString,
+        return grpc.experimental.unary_unary(request, target, '/Database/InsertPttTrend',
+            database__pb2.TrendWithDefaultDate.SerializeToString,
+            database__pb2.RowCount.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -256,9 +256,9 @@ class DbService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/DbService/InsertReunionTrend',
-            db__service__pb2.TrendWithDefaultDate.SerializeToString,
-            db__service__pb2.RowCount.FromString,
+        return grpc.experimental.unary_unary(request, target, '/Database/InsertReunionTrend',
+            database__pb2.TrendWithDefaultDate.SerializeToString,
+            database__pb2.RowCount.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -273,9 +273,9 @@ class DbService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/DbService/InsertTwseOverBought',
-            db__service__pb2.BoughtOrSold.SerializeToString,
-            db__service__pb2.RowCount.FromString,
+        return grpc.experimental.unary_unary(request, target, '/Database/InsertTwseOverBought',
+            database__pb2.BoughtOrSold.SerializeToString,
+            database__pb2.RowCount.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -290,9 +290,9 @@ class DbService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/DbService/InsertTwseOverSold',
-            db__service__pb2.BoughtOrSold.SerializeToString,
-            db__service__pb2.RowCount.FromString,
+        return grpc.experimental.unary_unary(request, target, '/Database/InsertTwseOverSold',
+            database__pb2.BoughtOrSold.SerializeToString,
+            database__pb2.RowCount.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -307,9 +307,9 @@ class DbService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/DbService/InsertFugleOverBought',
-            db__service__pb2.BoughtOrSold.SerializeToString,
-            db__service__pb2.RowCount.FromString,
+        return grpc.experimental.unary_unary(request, target, '/Database/InsertFugleOverBought',
+            database__pb2.BoughtOrSold.SerializeToString,
+            database__pb2.RowCount.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -324,8 +324,8 @@ class DbService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/DbService/InsertFugleOverSold',
-            db__service__pb2.BoughtOrSold.SerializeToString,
-            db__service__pb2.RowCount.FromString,
+        return grpc.experimental.unary_unary(request, target, '/Database/InsertFugleOverSold',
+            database__pb2.BoughtOrSold.SerializeToString,
+            database__pb2.RowCount.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0e\x64\x61tabase.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x18\n\x06Symbol\x12\x0e\n\x06symbol\x18\x01 \x01(\t\"*\n\nSymbolPair\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"\x1c\n\x08RowCount\x12\x10\n\x08rowcount\x18\x01 \x01(\r\":\n\x14TrendWithDefaultDate\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x12\n\npopularity\x18\x02 \x01(\r\"Z\n\x0c\x42oughtOrSold\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12(\n\x04\x64\x61te\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x10\n\x08quantity\x18\x03 \x01(\x05\x32\xbf\x03\n\x08\x44\x61tabase\x12\x33\n\nGetSymbols\x12\x16.google.protobuf.Empty\x1a\x0b.SymbolPair0\x01\x12!\n\tGetSymbol\x12\x07.Symbol\x1a\x0b.SymbolPair\x12)\n\rUpsertSymbols\x12\x0b.SymbolPair\x1a\t.RowCount(\x01\x12\x32\n\x0eInsertPttTrend\x12\x15.TrendWithDefaultDate\x1a\t.RowCount\x12\x36\n\x12InsertReunionTrend\x12\x15.TrendWithDefaultDate\x1a\t.RowCount\x12\x30\n\x14InsertTwseOverBought\x12\r.BoughtOrSold\x1a\t.RowCount\x12.\n\x12InsertTwseOverSold\x12\r.BoughtOrSold\x1a\t.RowCount\x12\x31\n\x15InsertFugleOverBought\x12\r.BoughtOrSold\x1a\t.RowCount\x12/\n\x13InsertFugleOverSold\x12\r.BoughtOrSold\x1a\t.RowCountb\x06proto3'
+  serialized_pb=b'\n\x0e\x64\x61tabase.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x18\n\x06Symbol\x12\x0e\n\x06symbol\x18\x01 \x01(\t\"*\n\nSymbolPair\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\")\n\x0bSymbolPairs\x12\x1a\n\x05pairs\x18\x01 \x03(\x0b\x32\x0b.SymbolPair\"\x1c\n\x08RowCount\x12\x10\n\x08rowcount\x18\x01 \x01(\r\":\n\x14TrendWithDefaultDate\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x12\n\npopularity\x18\x02 \x01(\r\"Z\n\x0c\x42oughtOrSold\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12(\n\x04\x64\x61te\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x10\n\x08quantity\x18\x03 \x01(\x05\x32\xd2\x03\n\x08\x44\x61tabase\x12\x34\n\x0bget_symbols\x12\x16.google.protobuf.Empty\x1a\x0b.SymbolPair0\x01\x12\"\n\nget_symbol\x12\x07.Symbol\x1a\x0b.SymbolPair\x12*\n\x0eupsert_symbols\x12\x0b.SymbolPair\x1a\t.RowCount(\x01\x12\x34\n\x10insert_ptt_trend\x12\x15.TrendWithDefaultDate\x1a\t.RowCount\x12\x38\n\x14insert_reunion_trend\x12\x15.TrendWithDefaultDate\x1a\t.RowCount\x12\x33\n\x17insert_twse_over_bought\x12\r.BoughtOrSold\x1a\t.RowCount\x12\x31\n\x15insert_twse_over_sold\x12\r.BoughtOrSold\x1a\t.RowCount\x12\x34\n\x18insert_fugle_over_bought\x12\r.BoughtOrSold\x1a\t.RowCount\x12\x32\n\x16insert_fugle_over_sold\x12\r.BoughtOrSold\x1a\t.RowCountb\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -99,6 +99,38 @@ _SYMBOLPAIR = _descriptor.Descriptor(
 )
 
 
+_SYMBOLPAIRS = _descriptor.Descriptor(
+  name='SymbolPairs',
+  full_name='SymbolPairs',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='pairs', full_name='SymbolPairs.pairs', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=150,
+  serialized_end=191,
+)
+
+
 _ROWCOUNT = _descriptor.Descriptor(
   name='RowCount',
   full_name='RowCount',
@@ -126,8 +158,8 @@ _ROWCOUNT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=150,
-  serialized_end=178,
+  serialized_start=193,
+  serialized_end=221,
 )
 
 
@@ -165,8 +197,8 @@ _TRENDWITHDEFAULTDATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=180,
-  serialized_end=238,
+  serialized_start=223,
+  serialized_end=281,
 )
 
 
@@ -211,13 +243,15 @@ _BOUGHTORSOLD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=240,
-  serialized_end=330,
+  serialized_start=283,
+  serialized_end=373,
 )
 
+_SYMBOLPAIRS.fields_by_name['pairs'].message_type = _SYMBOLPAIR
 _BOUGHTORSOLD.fields_by_name['date'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 DESCRIPTOR.message_types_by_name['Symbol'] = _SYMBOL
 DESCRIPTOR.message_types_by_name['SymbolPair'] = _SYMBOLPAIR
+DESCRIPTOR.message_types_by_name['SymbolPairs'] = _SYMBOLPAIRS
 DESCRIPTOR.message_types_by_name['RowCount'] = _ROWCOUNT
 DESCRIPTOR.message_types_by_name['TrendWithDefaultDate'] = _TRENDWITHDEFAULTDATE
 DESCRIPTOR.message_types_by_name['BoughtOrSold'] = _BOUGHTORSOLD
@@ -236,6 +270,13 @@ SymbolPair = _reflection.GeneratedProtocolMessageType('SymbolPair', (_message.Me
   # @@protoc_insertion_point(class_scope:SymbolPair)
   })
 _sym_db.RegisterMessage(SymbolPair)
+
+SymbolPairs = _reflection.GeneratedProtocolMessageType('SymbolPairs', (_message.Message,), {
+  'DESCRIPTOR' : _SYMBOLPAIRS,
+  '__module__' : 'database_pb2'
+  # @@protoc_insertion_point(class_scope:SymbolPairs)
+  })
+_sym_db.RegisterMessage(SymbolPairs)
 
 RowCount = _reflection.GeneratedProtocolMessageType('RowCount', (_message.Message,), {
   'DESCRIPTOR' : _ROWCOUNT,
@@ -267,12 +308,12 @@ _DATABASE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=333,
-  serialized_end=780,
+  serialized_start=376,
+  serialized_end=842,
   methods=[
   _descriptor.MethodDescriptor(
-    name='GetSymbols',
-    full_name='Database.GetSymbols',
+    name='get_symbols',
+    full_name='Database.get_symbols',
     index=0,
     containing_service=None,
     input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
@@ -281,8 +322,8 @@ _DATABASE = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='GetSymbol',
-    full_name='Database.GetSymbol',
+    name='get_symbol',
+    full_name='Database.get_symbol',
     index=1,
     containing_service=None,
     input_type=_SYMBOL,
@@ -291,8 +332,8 @@ _DATABASE = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='UpsertSymbols',
-    full_name='Database.UpsertSymbols',
+    name='upsert_symbols',
+    full_name='Database.upsert_symbols',
     index=2,
     containing_service=None,
     input_type=_SYMBOLPAIR,
@@ -301,8 +342,8 @@ _DATABASE = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='InsertPttTrend',
-    full_name='Database.InsertPttTrend',
+    name='insert_ptt_trend',
+    full_name='Database.insert_ptt_trend',
     index=3,
     containing_service=None,
     input_type=_TRENDWITHDEFAULTDATE,
@@ -311,8 +352,8 @@ _DATABASE = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='InsertReunionTrend',
-    full_name='Database.InsertReunionTrend',
+    name='insert_reunion_trend',
+    full_name='Database.insert_reunion_trend',
     index=4,
     containing_service=None,
     input_type=_TRENDWITHDEFAULTDATE,
@@ -321,8 +362,8 @@ _DATABASE = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='InsertTwseOverBought',
-    full_name='Database.InsertTwseOverBought',
+    name='insert_twse_over_bought',
+    full_name='Database.insert_twse_over_bought',
     index=5,
     containing_service=None,
     input_type=_BOUGHTORSOLD,
@@ -331,8 +372,8 @@ _DATABASE = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='InsertTwseOverSold',
-    full_name='Database.InsertTwseOverSold',
+    name='insert_twse_over_sold',
+    full_name='Database.insert_twse_over_sold',
     index=6,
     containing_service=None,
     input_type=_BOUGHTORSOLD,
@@ -341,8 +382,8 @@ _DATABASE = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='InsertFugleOverBought',
-    full_name='Database.InsertFugleOverBought',
+    name='insert_fugle_over_bought',
+    full_name='Database.insert_fugle_over_bought',
     index=7,
     containing_service=None,
     input_type=_BOUGHTORSOLD,
@@ -351,8 +392,8 @@ _DATABASE = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='InsertFugleOverSold',
-    full_name='Database.InsertFugleOverSold',
+    name='insert_fugle_over_sold',
+    full_name='Database.insert_fugle_over_sold',
     index=8,
     containing_service=None,
     input_type=_BOUGHTORSOLD,

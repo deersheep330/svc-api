@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import database_pb2 as database__pb2
+import service.api.database_pb2 as database__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
@@ -15,48 +15,48 @@ class DatabaseStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GetSymbols = channel.unary_stream(
-                '/Database/GetSymbols',
+        self.get_symbols = channel.unary_stream(
+                '/Database/get_symbols',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
                 response_deserializer=database__pb2.SymbolPair.FromString,
                 )
-        self.GetSymbol = channel.unary_unary(
-                '/Database/GetSymbol',
+        self.get_symbol = channel.unary_unary(
+                '/Database/get_symbol',
                 request_serializer=database__pb2.Symbol.SerializeToString,
                 response_deserializer=database__pb2.SymbolPair.FromString,
                 )
-        self.UpsertSymbols = channel.stream_unary(
-                '/Database/UpsertSymbols',
+        self.upsert_symbols = channel.stream_unary(
+                '/Database/upsert_symbols',
                 request_serializer=database__pb2.SymbolPair.SerializeToString,
                 response_deserializer=database__pb2.RowCount.FromString,
                 )
-        self.InsertPttTrend = channel.unary_unary(
-                '/Database/InsertPttTrend',
+        self.insert_ptt_trend = channel.unary_unary(
+                '/Database/insert_ptt_trend',
                 request_serializer=database__pb2.TrendWithDefaultDate.SerializeToString,
                 response_deserializer=database__pb2.RowCount.FromString,
                 )
-        self.InsertReunionTrend = channel.unary_unary(
-                '/Database/InsertReunionTrend',
+        self.insert_reunion_trend = channel.unary_unary(
+                '/Database/insert_reunion_trend',
                 request_serializer=database__pb2.TrendWithDefaultDate.SerializeToString,
                 response_deserializer=database__pb2.RowCount.FromString,
                 )
-        self.InsertTwseOverBought = channel.unary_unary(
-                '/Database/InsertTwseOverBought',
+        self.insert_twse_over_bought = channel.unary_unary(
+                '/Database/insert_twse_over_bought',
                 request_serializer=database__pb2.BoughtOrSold.SerializeToString,
                 response_deserializer=database__pb2.RowCount.FromString,
                 )
-        self.InsertTwseOverSold = channel.unary_unary(
-                '/Database/InsertTwseOverSold',
+        self.insert_twse_over_sold = channel.unary_unary(
+                '/Database/insert_twse_over_sold',
                 request_serializer=database__pb2.BoughtOrSold.SerializeToString,
                 response_deserializer=database__pb2.RowCount.FromString,
                 )
-        self.InsertFugleOverBought = channel.unary_unary(
-                '/Database/InsertFugleOverBought',
+        self.insert_fugle_over_bought = channel.unary_unary(
+                '/Database/insert_fugle_over_bought',
                 request_serializer=database__pb2.BoughtOrSold.SerializeToString,
                 response_deserializer=database__pb2.RowCount.FromString,
                 )
-        self.InsertFugleOverSold = channel.unary_unary(
-                '/Database/InsertFugleOverSold',
+        self.insert_fugle_over_sold = channel.unary_unary(
+                '/Database/insert_fugle_over_sold',
                 request_serializer=database__pb2.BoughtOrSold.SerializeToString,
                 response_deserializer=database__pb2.RowCount.FromString,
                 )
@@ -65,55 +65,55 @@ class DatabaseStub(object):
 class DatabaseServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def GetSymbols(self, request, context):
+    def get_symbols(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetSymbol(self, request, context):
+    def get_symbol(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def UpsertSymbols(self, request_iterator, context):
+    def upsert_symbols(self, request_iterator, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def InsertPttTrend(self, request, context):
+    def insert_ptt_trend(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def InsertReunionTrend(self, request, context):
+    def insert_reunion_trend(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def InsertTwseOverBought(self, request, context):
+    def insert_twse_over_bought(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def InsertTwseOverSold(self, request, context):
+    def insert_twse_over_sold(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def InsertFugleOverBought(self, request, context):
+    def insert_fugle_over_bought(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def InsertFugleOverSold(self, request, context):
+    def insert_fugle_over_sold(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -122,48 +122,48 @@ class DatabaseServicer(object):
 
 def add_DatabaseServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GetSymbols': grpc.unary_stream_rpc_method_handler(
-                    servicer.GetSymbols,
+            'get_symbols': grpc.unary_stream_rpc_method_handler(
+                    servicer.get_symbols,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                     response_serializer=database__pb2.SymbolPair.SerializeToString,
             ),
-            'GetSymbol': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetSymbol,
+            'get_symbol': grpc.unary_unary_rpc_method_handler(
+                    servicer.get_symbol,
                     request_deserializer=database__pb2.Symbol.FromString,
                     response_serializer=database__pb2.SymbolPair.SerializeToString,
             ),
-            'UpsertSymbols': grpc.stream_unary_rpc_method_handler(
-                    servicer.UpsertSymbols,
+            'upsert_symbols': grpc.stream_unary_rpc_method_handler(
+                    servicer.upsert_symbols,
                     request_deserializer=database__pb2.SymbolPair.FromString,
                     response_serializer=database__pb2.RowCount.SerializeToString,
             ),
-            'InsertPttTrend': grpc.unary_unary_rpc_method_handler(
-                    servicer.InsertPttTrend,
+            'insert_ptt_trend': grpc.unary_unary_rpc_method_handler(
+                    servicer.insert_ptt_trend,
                     request_deserializer=database__pb2.TrendWithDefaultDate.FromString,
                     response_serializer=database__pb2.RowCount.SerializeToString,
             ),
-            'InsertReunionTrend': grpc.unary_unary_rpc_method_handler(
-                    servicer.InsertReunionTrend,
+            'insert_reunion_trend': grpc.unary_unary_rpc_method_handler(
+                    servicer.insert_reunion_trend,
                     request_deserializer=database__pb2.TrendWithDefaultDate.FromString,
                     response_serializer=database__pb2.RowCount.SerializeToString,
             ),
-            'InsertTwseOverBought': grpc.unary_unary_rpc_method_handler(
-                    servicer.InsertTwseOverBought,
+            'insert_twse_over_bought': grpc.unary_unary_rpc_method_handler(
+                    servicer.insert_twse_over_bought,
                     request_deserializer=database__pb2.BoughtOrSold.FromString,
                     response_serializer=database__pb2.RowCount.SerializeToString,
             ),
-            'InsertTwseOverSold': grpc.unary_unary_rpc_method_handler(
-                    servicer.InsertTwseOverSold,
+            'insert_twse_over_sold': grpc.unary_unary_rpc_method_handler(
+                    servicer.insert_twse_over_sold,
                     request_deserializer=database__pb2.BoughtOrSold.FromString,
                     response_serializer=database__pb2.RowCount.SerializeToString,
             ),
-            'InsertFugleOverBought': grpc.unary_unary_rpc_method_handler(
-                    servicer.InsertFugleOverBought,
+            'insert_fugle_over_bought': grpc.unary_unary_rpc_method_handler(
+                    servicer.insert_fugle_over_bought,
                     request_deserializer=database__pb2.BoughtOrSold.FromString,
                     response_serializer=database__pb2.RowCount.SerializeToString,
             ),
-            'InsertFugleOverSold': grpc.unary_unary_rpc_method_handler(
-                    servicer.InsertFugleOverSold,
+            'insert_fugle_over_sold': grpc.unary_unary_rpc_method_handler(
+                    servicer.insert_fugle_over_sold,
                     request_deserializer=database__pb2.BoughtOrSold.FromString,
                     response_serializer=database__pb2.RowCount.SerializeToString,
             ),
@@ -178,7 +178,7 @@ class Database(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def GetSymbols(request,
+    def get_symbols(request,
             target,
             options=(),
             channel_credentials=None,
@@ -188,14 +188,14 @@ class Database(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/Database/GetSymbols',
+        return grpc.experimental.unary_stream(request, target, '/Database/get_symbols',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             database__pb2.SymbolPair.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def GetSymbol(request,
+    def get_symbol(request,
             target,
             options=(),
             channel_credentials=None,
@@ -205,14 +205,14 @@ class Database(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Database/GetSymbol',
+        return grpc.experimental.unary_unary(request, target, '/Database/get_symbol',
             database__pb2.Symbol.SerializeToString,
             database__pb2.SymbolPair.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def UpsertSymbols(request_iterator,
+    def upsert_symbols(request_iterator,
             target,
             options=(),
             channel_credentials=None,
@@ -222,14 +222,14 @@ class Database(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.stream_unary(request_iterator, target, '/Database/UpsertSymbols',
+        return grpc.experimental.stream_unary(request_iterator, target, '/Database/upsert_symbols',
             database__pb2.SymbolPair.SerializeToString,
             database__pb2.RowCount.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def InsertPttTrend(request,
+    def insert_ptt_trend(request,
             target,
             options=(),
             channel_credentials=None,
@@ -239,14 +239,14 @@ class Database(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Database/InsertPttTrend',
+        return grpc.experimental.unary_unary(request, target, '/Database/insert_ptt_trend',
             database__pb2.TrendWithDefaultDate.SerializeToString,
             database__pb2.RowCount.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def InsertReunionTrend(request,
+    def insert_reunion_trend(request,
             target,
             options=(),
             channel_credentials=None,
@@ -256,14 +256,14 @@ class Database(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Database/InsertReunionTrend',
+        return grpc.experimental.unary_unary(request, target, '/Database/insert_reunion_trend',
             database__pb2.TrendWithDefaultDate.SerializeToString,
             database__pb2.RowCount.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def InsertTwseOverBought(request,
+    def insert_twse_over_bought(request,
             target,
             options=(),
             channel_credentials=None,
@@ -273,14 +273,14 @@ class Database(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Database/InsertTwseOverBought',
+        return grpc.experimental.unary_unary(request, target, '/Database/insert_twse_over_bought',
             database__pb2.BoughtOrSold.SerializeToString,
             database__pb2.RowCount.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def InsertTwseOverSold(request,
+    def insert_twse_over_sold(request,
             target,
             options=(),
             channel_credentials=None,
@@ -290,14 +290,14 @@ class Database(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Database/InsertTwseOverSold',
+        return grpc.experimental.unary_unary(request, target, '/Database/insert_twse_over_sold',
             database__pb2.BoughtOrSold.SerializeToString,
             database__pb2.RowCount.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def InsertFugleOverBought(request,
+    def insert_fugle_over_bought(request,
             target,
             options=(),
             channel_credentials=None,
@@ -307,14 +307,14 @@ class Database(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Database/InsertFugleOverBought',
+        return grpc.experimental.unary_unary(request, target, '/Database/insert_fugle_over_bought',
             database__pb2.BoughtOrSold.SerializeToString,
             database__pb2.RowCount.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def InsertFugleOverSold(request,
+    def insert_fugle_over_sold(request,
             target,
             options=(),
             channel_credentials=None,
@@ -324,7 +324,7 @@ class Database(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Database/InsertFugleOverSold',
+        return grpc.experimental.unary_unary(request, target, '/Database/insert_fugle_over_sold',
             database__pb2.BoughtOrSold.SerializeToString,
             database__pb2.RowCount.FromString,
             options, channel_credentials,

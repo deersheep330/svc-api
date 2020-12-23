@@ -1,1 +1,1 @@
-python -m grpc_tools.protoc -I./grpc/protos --python_out=./grpc/api --grpc_python_out=./grpc/api ./grpc/protos/database.proto
+python -m grpc_tools.protoc -I./service/protos --python_out=./service/api --grpc_python_out=./service/api ./service/protos/database.proto

@@ -5,10 +5,10 @@ import "google/protobuf/timestamp.proto";
 
 service Database {
 
-  rpc get_symbols(google.protobuf.Empty) returns (stream SymbolPair);
-  rpc get_symbol(Symbol) returns (SymbolPair);
+  rpc get_stocks(google.protobuf.Empty) returns (stream Stock);
+  rpc get_stock(Symbol) returns (Stock);
 
-  rpc upsert_symbols(stream SymbolPair) returns (RowCount);
+  rpc upsert_stocks(stream Stock) returns (RowCount);
 
   rpc insert_ptt_trend(TrendWithDefaultDate) returns (RowCount);
 
@@ -26,7 +26,7 @@ message Symbol {
   string symbol = 1;
 }
 
-message SymbolPair {
+message Stock {
   string symbol = 1;
   string name = 2;
 }

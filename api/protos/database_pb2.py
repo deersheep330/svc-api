@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x19\x61pi/protos/database.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x18\n\x06Symbol\x12\x0e\n\x06symbol\x18\x01 \x01(\t\"*\n\nSymbolPair\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"\x1c\n\x08RowCount\x12\x10\n\x08rowcount\x18\x01 \x01(\r\":\n\x14TrendWithDefaultDate\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x12\n\npopularity\x18\x02 \x01(\r\"Z\n\x0c\x42oughtOrSold\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12(\n\x04\x64\x61te\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x10\n\x08quantity\x18\x03 \x01(\x05\x32\xd2\x03\n\x08\x44\x61tabase\x12\x34\n\x0bget_symbols\x12\x16.google.protobuf.Empty\x1a\x0b.SymbolPair0\x01\x12\"\n\nget_symbol\x12\x07.Symbol\x1a\x0b.SymbolPair\x12*\n\x0eupsert_symbols\x12\x0b.SymbolPair\x1a\t.RowCount(\x01\x12\x34\n\x10insert_ptt_trend\x12\x15.TrendWithDefaultDate\x1a\t.RowCount\x12\x38\n\x14insert_reunion_trend\x12\x15.TrendWithDefaultDate\x1a\t.RowCount\x12\x33\n\x17insert_twse_over_bought\x12\r.BoughtOrSold\x1a\t.RowCount\x12\x31\n\x15insert_twse_over_sold\x12\r.BoughtOrSold\x1a\t.RowCount\x12\x34\n\x18insert_fugle_over_bought\x12\r.BoughtOrSold\x1a\t.RowCount\x12\x32\n\x16insert_fugle_over_sold\x12\r.BoughtOrSold\x1a\t.RowCountb\x06proto3'
+  serialized_pb=b'\n\x19\x61pi/protos/database.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x18\n\x06Symbol\x12\x0e\n\x06symbol\x18\x01 \x01(\t\"%\n\x05Stock\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"\x1c\n\x08RowCount\x12\x10\n\x08rowcount\x18\x01 \x01(\r\":\n\x14TrendWithDefaultDate\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12\x12\n\npopularity\x18\x02 \x01(\r\"Z\n\x0c\x42oughtOrSold\x12\x0e\n\x06symbol\x18\x01 \x01(\t\x12(\n\x04\x64\x61te\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x10\n\x08quantity\x18\x03 \x01(\x05\x32\xc0\x03\n\x08\x44\x61tabase\x12.\n\nget_stocks\x12\x16.google.protobuf.Empty\x1a\x06.Stock0\x01\x12\x1c\n\tget_stock\x12\x07.Symbol\x1a\x06.Stock\x12$\n\rupsert_stocks\x12\x06.Stock\x1a\t.RowCount(\x01\x12\x34\n\x10insert_ptt_trend\x12\x15.TrendWithDefaultDate\x1a\t.RowCount\x12\x38\n\x14insert_reunion_trend\x12\x15.TrendWithDefaultDate\x1a\t.RowCount\x12\x33\n\x17insert_twse_over_bought\x12\r.BoughtOrSold\x1a\t.RowCount\x12\x31\n\x15insert_twse_over_sold\x12\r.BoughtOrSold\x1a\t.RowCount\x12\x34\n\x18insert_fugle_over_bought\x12\r.BoughtOrSold\x1a\t.RowCount\x12\x32\n\x16insert_fugle_over_sold\x12\r.BoughtOrSold\x1a\t.RowCountb\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -60,23 +60,23 @@ _SYMBOL = _descriptor.Descriptor(
 )
 
 
-_SYMBOLPAIR = _descriptor.Descriptor(
-  name='SymbolPair',
-  full_name='SymbolPair',
+_STOCK = _descriptor.Descriptor(
+  name='Stock',
+  full_name='Stock',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='symbol', full_name='SymbolPair.symbol', index=0,
+      name='symbol', full_name='Stock.symbol', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='name', full_name='SymbolPair.name', index=1,
+      name='name', full_name='Stock.name', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -95,7 +95,7 @@ _SYMBOLPAIR = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=117,
-  serialized_end=159,
+  serialized_end=154,
 )
 
 
@@ -126,8 +126,8 @@ _ROWCOUNT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=161,
-  serialized_end=189,
+  serialized_start=156,
+  serialized_end=184,
 )
 
 
@@ -165,8 +165,8 @@ _TRENDWITHDEFAULTDATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=191,
-  serialized_end=249,
+  serialized_start=186,
+  serialized_end=244,
 )
 
 
@@ -211,13 +211,13 @@ _BOUGHTORSOLD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=251,
-  serialized_end=341,
+  serialized_start=246,
+  serialized_end=336,
 )
 
 _BOUGHTORSOLD.fields_by_name['date'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 DESCRIPTOR.message_types_by_name['Symbol'] = _SYMBOL
-DESCRIPTOR.message_types_by_name['SymbolPair'] = _SYMBOLPAIR
+DESCRIPTOR.message_types_by_name['Stock'] = _STOCK
 DESCRIPTOR.message_types_by_name['RowCount'] = _ROWCOUNT
 DESCRIPTOR.message_types_by_name['TrendWithDefaultDate'] = _TRENDWITHDEFAULTDATE
 DESCRIPTOR.message_types_by_name['BoughtOrSold'] = _BOUGHTORSOLD
@@ -230,12 +230,12 @@ Symbol = _reflection.GeneratedProtocolMessageType('Symbol', (_message.Message,),
   })
 _sym_db.RegisterMessage(Symbol)
 
-SymbolPair = _reflection.GeneratedProtocolMessageType('SymbolPair', (_message.Message,), {
-  'DESCRIPTOR' : _SYMBOLPAIR,
+Stock = _reflection.GeneratedProtocolMessageType('Stock', (_message.Message,), {
+  'DESCRIPTOR' : _STOCK,
   '__module__' : 'api.protos.database_pb2'
-  # @@protoc_insertion_point(class_scope:SymbolPair)
+  # @@protoc_insertion_point(class_scope:Stock)
   })
-_sym_db.RegisterMessage(SymbolPair)
+_sym_db.RegisterMessage(Stock)
 
 RowCount = _reflection.GeneratedProtocolMessageType('RowCount', (_message.Message,), {
   'DESCRIPTOR' : _ROWCOUNT,
@@ -267,35 +267,35 @@ _DATABASE = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=344,
-  serialized_end=810,
+  serialized_start=339,
+  serialized_end=787,
   methods=[
   _descriptor.MethodDescriptor(
-    name='get_symbols',
-    full_name='Database.get_symbols',
+    name='get_stocks',
+    full_name='Database.get_stocks',
     index=0,
     containing_service=None,
     input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=_SYMBOLPAIR,
+    output_type=_STOCK,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='get_symbol',
-    full_name='Database.get_symbol',
+    name='get_stock',
+    full_name='Database.get_stock',
     index=1,
     containing_service=None,
     input_type=_SYMBOL,
-    output_type=_SYMBOLPAIR,
+    output_type=_STOCK,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='upsert_symbols',
-    full_name='Database.upsert_symbols',
+    name='upsert_stocks',
+    full_name='Database.upsert_stocks',
     index=2,
     containing_service=None,
-    input_type=_SYMBOLPAIR,
+    input_type=_STOCK,
     output_type=_ROWCOUNT,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,

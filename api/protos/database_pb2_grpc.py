@@ -15,19 +15,19 @@ class DatabaseStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.get_symbols = channel.unary_stream(
-                '/Database/get_symbols',
+        self.get_stocks = channel.unary_stream(
+                '/Database/get_stocks',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-                response_deserializer=api_dot_protos_dot_database__pb2.SymbolPair.FromString,
+                response_deserializer=api_dot_protos_dot_database__pb2.Stock.FromString,
                 )
-        self.get_symbol = channel.unary_unary(
-                '/Database/get_symbol',
+        self.get_stock = channel.unary_unary(
+                '/Database/get_stock',
                 request_serializer=api_dot_protos_dot_database__pb2.Symbol.SerializeToString,
-                response_deserializer=api_dot_protos_dot_database__pb2.SymbolPair.FromString,
+                response_deserializer=api_dot_protos_dot_database__pb2.Stock.FromString,
                 )
-        self.upsert_symbols = channel.stream_unary(
-                '/Database/upsert_symbols',
-                request_serializer=api_dot_protos_dot_database__pb2.SymbolPair.SerializeToString,
+        self.upsert_stocks = channel.stream_unary(
+                '/Database/upsert_stocks',
+                request_serializer=api_dot_protos_dot_database__pb2.Stock.SerializeToString,
                 response_deserializer=api_dot_protos_dot_database__pb2.RowCount.FromString,
                 )
         self.insert_ptt_trend = channel.unary_unary(
@@ -65,19 +65,19 @@ class DatabaseStub(object):
 class DatabaseServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def get_symbols(self, request, context):
+    def get_stocks(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def get_symbol(self, request, context):
+    def get_stock(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def upsert_symbols(self, request_iterator, context):
+    def upsert_stocks(self, request_iterator, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -122,19 +122,19 @@ class DatabaseServicer(object):
 
 def add_DatabaseServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'get_symbols': grpc.unary_stream_rpc_method_handler(
-                    servicer.get_symbols,
+            'get_stocks': grpc.unary_stream_rpc_method_handler(
+                    servicer.get_stocks,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                    response_serializer=api_dot_protos_dot_database__pb2.SymbolPair.SerializeToString,
+                    response_serializer=api_dot_protos_dot_database__pb2.Stock.SerializeToString,
             ),
-            'get_symbol': grpc.unary_unary_rpc_method_handler(
-                    servicer.get_symbol,
+            'get_stock': grpc.unary_unary_rpc_method_handler(
+                    servicer.get_stock,
                     request_deserializer=api_dot_protos_dot_database__pb2.Symbol.FromString,
-                    response_serializer=api_dot_protos_dot_database__pb2.SymbolPair.SerializeToString,
+                    response_serializer=api_dot_protos_dot_database__pb2.Stock.SerializeToString,
             ),
-            'upsert_symbols': grpc.stream_unary_rpc_method_handler(
-                    servicer.upsert_symbols,
-                    request_deserializer=api_dot_protos_dot_database__pb2.SymbolPair.FromString,
+            'upsert_stocks': grpc.stream_unary_rpc_method_handler(
+                    servicer.upsert_stocks,
+                    request_deserializer=api_dot_protos_dot_database__pb2.Stock.FromString,
                     response_serializer=api_dot_protos_dot_database__pb2.RowCount.SerializeToString,
             ),
             'insert_ptt_trend': grpc.unary_unary_rpc_method_handler(
@@ -178,7 +178,7 @@ class Database(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def get_symbols(request,
+    def get_stocks(request,
             target,
             options=(),
             channel_credentials=None,
@@ -188,14 +188,14 @@ class Database(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/Database/get_symbols',
+        return grpc.experimental.unary_stream(request, target, '/Database/get_stocks',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            api_dot_protos_dot_database__pb2.SymbolPair.FromString,
+            api_dot_protos_dot_database__pb2.Stock.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def get_symbol(request,
+    def get_stock(request,
             target,
             options=(),
             channel_credentials=None,
@@ -205,14 +205,14 @@ class Database(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Database/get_symbol',
+        return grpc.experimental.unary_unary(request, target, '/Database/get_stock',
             api_dot_protos_dot_database__pb2.Symbol.SerializeToString,
-            api_dot_protos_dot_database__pb2.SymbolPair.FromString,
+            api_dot_protos_dot_database__pb2.Stock.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def upsert_symbols(request_iterator,
+    def upsert_stocks(request_iterator,
             target,
             options=(),
             channel_credentials=None,
@@ -222,8 +222,8 @@ class Database(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.stream_unary(request_iterator, target, '/Database/upsert_symbols',
-            api_dot_protos_dot_database__pb2.SymbolPair.SerializeToString,
+        return grpc.experimental.stream_unary(request_iterator, target, '/Database/upsert_stocks',
+            api_dot_protos_dot_database__pb2.Stock.SerializeToString,
             api_dot_protos_dot_database__pb2.RowCount.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

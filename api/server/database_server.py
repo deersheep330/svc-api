@@ -1,9 +1,9 @@
 from concurrent import futures
 
 from api.db import get_db_hostname, create_engine, start_session, upsert
-from api.models import Stock
+from api.models import Stock as StockModel
 from api.protos import database_pb2_grpc
-from api.protos.database_pb2 import SymbolPair
+from api.protos.database_pb2 import Stock, RowCount
 
 import grpc
 
@@ -14,13 +14,13 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
     def __init__(self):
         pass
 
-    def get_symbols(self, request, context):
+    def get_stocks(self, request, context):
         try:
             session = start_session(engine)
-            arr = session.query(Stock).all()
+            arr = session.query(StockModel).all()
             for item in arr:
                 print(item.symbol, item.name)
-                yield SymbolPair(symbol=item.symbol, name=item.name)
+                yield Stock(symbol=item.symbol, name=item.name)
         except Exception as e:
             print(e)
             context.set_details(str(e))
@@ -28,11 +28,11 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
         finally:
             session.close()
 
-    def get_symbol(self, request, context):
+    def get_stock(self, request, context):
         try:
             session = start_session(engine)
-            symbol = session.query(Stock).filter_by(symbol=request.symbol).first()
-            return SymbolPair(symbol=symbol.symbol, name=symbol.name)
+            symbol = session.query(StockModel).filter_by(symbol=request.symbol).first()
+            return Stock(symbol=symbol.symbol, name=symbol.name)
         except Exception as e:
             print(e)
             context.set_details(str(e))
@@ -40,15 +40,16 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
         finally:
             session.close()
 
-    def upsert_symbols(self, request_iterator, context):
+    def upsert_stocks(self, request_iterator, context):
         try:
-            print('AAAA')
             session = start_session(engine)
             rows = []
-            print(request_iterator)
-            for item in request_iterator:
-                print(item)
-            #rowcount = upsert(session, Stock, )
+            for stock in request_iterator:
+                rows.append([stock.symbol, stock.name])
+                print(stock.symbol, stock.name)
+            rowcount = upsert(session, StockModel, rows)
+            #rowcount = upsert(session, StockModel, request_iterator)
+            return RowCount(rowcount=rowcount)
         except Exception as e:
             print(e)
             context.set_details(str(e))

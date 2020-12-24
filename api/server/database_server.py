@@ -1,9 +1,9 @@
 from concurrent import futures
 
-from service.db import get_db_hostname, create_engine, start_session
-from service.models import Stock
-from service.api import database_pb2_grpc
-from service.api.database_pb2 import SymbolPair
+from api.db import get_db_hostname, create_engine, start_session
+from api.models import Stock
+from api.protos import database_pb2_grpc
+from api.protos.database_pb2 import SymbolPair
 
 import grpc
 
@@ -15,15 +15,14 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
         pass
 
     def get_symbols(self, request, context):
-        print(request)
-        '''
         try:
             print(request)
             session = start_session(engine)
-            #arr = session.query(Stock).all()
-            print(arr)
+            arr = session.query(Stock).all()
+            #print(arr)
             for item in arr:
-                yield SymbolPair(symbol=item['symbol'], name=item['name'])
+                print(item.symbol, item.name)
+                yield SymbolPair(symbol=item.symbol, name=item.name)
         except Exception as e:
             print(e)
             context.set_details(e)
@@ -31,7 +30,7 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
             yield SymbolPair()
         finally:
             session.close()
-        '''
+
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import service.api.database_pb2 as database__pb2
+from api.protos import database_pb2 as api_dot_protos_dot_database__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
@@ -18,47 +18,47 @@ class DatabaseStub(object):
         self.get_symbols = channel.unary_stream(
                 '/Database/get_symbols',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-                response_deserializer=database__pb2.SymbolPair.FromString,
+                response_deserializer=api_dot_protos_dot_database__pb2.SymbolPair.FromString,
                 )
         self.get_symbol = channel.unary_unary(
                 '/Database/get_symbol',
-                request_serializer=database__pb2.Symbol.SerializeToString,
-                response_deserializer=database__pb2.SymbolPair.FromString,
+                request_serializer=api_dot_protos_dot_database__pb2.Symbol.SerializeToString,
+                response_deserializer=api_dot_protos_dot_database__pb2.SymbolPair.FromString,
                 )
         self.upsert_symbols = channel.stream_unary(
                 '/Database/upsert_symbols',
-                request_serializer=database__pb2.SymbolPair.SerializeToString,
-                response_deserializer=database__pb2.RowCount.FromString,
+                request_serializer=api_dot_protos_dot_database__pb2.SymbolPair.SerializeToString,
+                response_deserializer=api_dot_protos_dot_database__pb2.RowCount.FromString,
                 )
         self.insert_ptt_trend = channel.unary_unary(
                 '/Database/insert_ptt_trend',
-                request_serializer=database__pb2.TrendWithDefaultDate.SerializeToString,
-                response_deserializer=database__pb2.RowCount.FromString,
+                request_serializer=api_dot_protos_dot_database__pb2.TrendWithDefaultDate.SerializeToString,
+                response_deserializer=api_dot_protos_dot_database__pb2.RowCount.FromString,
                 )
         self.insert_reunion_trend = channel.unary_unary(
                 '/Database/insert_reunion_trend',
-                request_serializer=database__pb2.TrendWithDefaultDate.SerializeToString,
-                response_deserializer=database__pb2.RowCount.FromString,
+                request_serializer=api_dot_protos_dot_database__pb2.TrendWithDefaultDate.SerializeToString,
+                response_deserializer=api_dot_protos_dot_database__pb2.RowCount.FromString,
                 )
         self.insert_twse_over_bought = channel.unary_unary(
                 '/Database/insert_twse_over_bought',
-                request_serializer=database__pb2.BoughtOrSold.SerializeToString,
-                response_deserializer=database__pb2.RowCount.FromString,
+                request_serializer=api_dot_protos_dot_database__pb2.BoughtOrSold.SerializeToString,
+                response_deserializer=api_dot_protos_dot_database__pb2.RowCount.FromString,
                 )
         self.insert_twse_over_sold = channel.unary_unary(
                 '/Database/insert_twse_over_sold',
-                request_serializer=database__pb2.BoughtOrSold.SerializeToString,
-                response_deserializer=database__pb2.RowCount.FromString,
+                request_serializer=api_dot_protos_dot_database__pb2.BoughtOrSold.SerializeToString,
+                response_deserializer=api_dot_protos_dot_database__pb2.RowCount.FromString,
                 )
         self.insert_fugle_over_bought = channel.unary_unary(
                 '/Database/insert_fugle_over_bought',
-                request_serializer=database__pb2.BoughtOrSold.SerializeToString,
-                response_deserializer=database__pb2.RowCount.FromString,
+                request_serializer=api_dot_protos_dot_database__pb2.BoughtOrSold.SerializeToString,
+                response_deserializer=api_dot_protos_dot_database__pb2.RowCount.FromString,
                 )
         self.insert_fugle_over_sold = channel.unary_unary(
                 '/Database/insert_fugle_over_sold',
-                request_serializer=database__pb2.BoughtOrSold.SerializeToString,
-                response_deserializer=database__pb2.RowCount.FromString,
+                request_serializer=api_dot_protos_dot_database__pb2.BoughtOrSold.SerializeToString,
+                response_deserializer=api_dot_protos_dot_database__pb2.RowCount.FromString,
                 )
 
 
@@ -125,47 +125,47 @@ def add_DatabaseServicer_to_server(servicer, server):
             'get_symbols': grpc.unary_stream_rpc_method_handler(
                     servicer.get_symbols,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                    response_serializer=database__pb2.SymbolPair.SerializeToString,
+                    response_serializer=api_dot_protos_dot_database__pb2.SymbolPair.SerializeToString,
             ),
             'get_symbol': grpc.unary_unary_rpc_method_handler(
                     servicer.get_symbol,
-                    request_deserializer=database__pb2.Symbol.FromString,
-                    response_serializer=database__pb2.SymbolPair.SerializeToString,
+                    request_deserializer=api_dot_protos_dot_database__pb2.Symbol.FromString,
+                    response_serializer=api_dot_protos_dot_database__pb2.SymbolPair.SerializeToString,
             ),
             'upsert_symbols': grpc.stream_unary_rpc_method_handler(
                     servicer.upsert_symbols,
-                    request_deserializer=database__pb2.SymbolPair.FromString,
-                    response_serializer=database__pb2.RowCount.SerializeToString,
+                    request_deserializer=api_dot_protos_dot_database__pb2.SymbolPair.FromString,
+                    response_serializer=api_dot_protos_dot_database__pb2.RowCount.SerializeToString,
             ),
             'insert_ptt_trend': grpc.unary_unary_rpc_method_handler(
                     servicer.insert_ptt_trend,
-                    request_deserializer=database__pb2.TrendWithDefaultDate.FromString,
-                    response_serializer=database__pb2.RowCount.SerializeToString,
+                    request_deserializer=api_dot_protos_dot_database__pb2.TrendWithDefaultDate.FromString,
+                    response_serializer=api_dot_protos_dot_database__pb2.RowCount.SerializeToString,
             ),
             'insert_reunion_trend': grpc.unary_unary_rpc_method_handler(
                     servicer.insert_reunion_trend,
-                    request_deserializer=database__pb2.TrendWithDefaultDate.FromString,
-                    response_serializer=database__pb2.RowCount.SerializeToString,
+                    request_deserializer=api_dot_protos_dot_database__pb2.TrendWithDefaultDate.FromString,
+                    response_serializer=api_dot_protos_dot_database__pb2.RowCount.SerializeToString,
             ),
             'insert_twse_over_bought': grpc.unary_unary_rpc_method_handler(
                     servicer.insert_twse_over_bought,
-                    request_deserializer=database__pb2.BoughtOrSold.FromString,
-                    response_serializer=database__pb2.RowCount.SerializeToString,
+                    request_deserializer=api_dot_protos_dot_database__pb2.BoughtOrSold.FromString,
+                    response_serializer=api_dot_protos_dot_database__pb2.RowCount.SerializeToString,
             ),
             'insert_twse_over_sold': grpc.unary_unary_rpc_method_handler(
                     servicer.insert_twse_over_sold,
-                    request_deserializer=database__pb2.BoughtOrSold.FromString,
-                    response_serializer=database__pb2.RowCount.SerializeToString,
+                    request_deserializer=api_dot_protos_dot_database__pb2.BoughtOrSold.FromString,
+                    response_serializer=api_dot_protos_dot_database__pb2.RowCount.SerializeToString,
             ),
             'insert_fugle_over_bought': grpc.unary_unary_rpc_method_handler(
                     servicer.insert_fugle_over_bought,
-                    request_deserializer=database__pb2.BoughtOrSold.FromString,
-                    response_serializer=database__pb2.RowCount.SerializeToString,
+                    request_deserializer=api_dot_protos_dot_database__pb2.BoughtOrSold.FromString,
+                    response_serializer=api_dot_protos_dot_database__pb2.RowCount.SerializeToString,
             ),
             'insert_fugle_over_sold': grpc.unary_unary_rpc_method_handler(
                     servicer.insert_fugle_over_sold,
-                    request_deserializer=database__pb2.BoughtOrSold.FromString,
-                    response_serializer=database__pb2.RowCount.SerializeToString,
+                    request_deserializer=api_dot_protos_dot_database__pb2.BoughtOrSold.FromString,
+                    response_serializer=api_dot_protos_dot_database__pb2.RowCount.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -190,7 +190,7 @@ class Database(object):
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/Database/get_symbols',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            database__pb2.SymbolPair.FromString,
+            api_dot_protos_dot_database__pb2.SymbolPair.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -206,8 +206,8 @@ class Database(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Database/get_symbol',
-            database__pb2.Symbol.SerializeToString,
-            database__pb2.SymbolPair.FromString,
+            api_dot_protos_dot_database__pb2.Symbol.SerializeToString,
+            api_dot_protos_dot_database__pb2.SymbolPair.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -223,8 +223,8 @@ class Database(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.stream_unary(request_iterator, target, '/Database/upsert_symbols',
-            database__pb2.SymbolPair.SerializeToString,
-            database__pb2.RowCount.FromString,
+            api_dot_protos_dot_database__pb2.SymbolPair.SerializeToString,
+            api_dot_protos_dot_database__pb2.RowCount.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -240,8 +240,8 @@ class Database(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Database/insert_ptt_trend',
-            database__pb2.TrendWithDefaultDate.SerializeToString,
-            database__pb2.RowCount.FromString,
+            api_dot_protos_dot_database__pb2.TrendWithDefaultDate.SerializeToString,
+            api_dot_protos_dot_database__pb2.RowCount.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -257,8 +257,8 @@ class Database(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Database/insert_reunion_trend',
-            database__pb2.TrendWithDefaultDate.SerializeToString,
-            database__pb2.RowCount.FromString,
+            api_dot_protos_dot_database__pb2.TrendWithDefaultDate.SerializeToString,
+            api_dot_protos_dot_database__pb2.RowCount.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -274,8 +274,8 @@ class Database(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Database/insert_twse_over_bought',
-            database__pb2.BoughtOrSold.SerializeToString,
-            database__pb2.RowCount.FromString,
+            api_dot_protos_dot_database__pb2.BoughtOrSold.SerializeToString,
+            api_dot_protos_dot_database__pb2.RowCount.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -291,8 +291,8 @@ class Database(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Database/insert_twse_over_sold',
-            database__pb2.BoughtOrSold.SerializeToString,
-            database__pb2.RowCount.FromString,
+            api_dot_protos_dot_database__pb2.BoughtOrSold.SerializeToString,
+            api_dot_protos_dot_database__pb2.RowCount.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -308,8 +308,8 @@ class Database(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Database/insert_fugle_over_bought',
-            database__pb2.BoughtOrSold.SerializeToString,
-            database__pb2.RowCount.FromString,
+            api_dot_protos_dot_database__pb2.BoughtOrSold.SerializeToString,
+            api_dot_protos_dot_database__pb2.RowCount.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -325,7 +325,7 @@ class Database(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Database/insert_fugle_over_sold',
-            database__pb2.BoughtOrSold.SerializeToString,
-            database__pb2.RowCount.FromString,
+            api_dot_protos_dot_database__pb2.BoughtOrSold.SerializeToString,
+            api_dot_protos_dot_database__pb2.RowCount.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

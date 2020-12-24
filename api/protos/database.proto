@@ -31,10 +31,6 @@ message SymbolPair {
   string name = 2;
 }
 
-message SymbolPairs {
-    repeated SymbolPair pairs = 1;
-}
-
 message RowCount {
   uint32 rowcount = 1;
 }

@@ -1,6 +1,6 @@
 from concurrent import futures
 
-from api.db import get_db_hostname, create_engine, start_session
+from api.db import get_db_hostname, create_engine, start_session, upsert
 from api.models import Stock
 from api.protos import database_pb2_grpc
 from api.protos.database_pb2 import SymbolPair
@@ -16,9 +16,7 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
 
     def get_symbols(self, request, context):
         try:
-            print(request)
             session = start_session(engine)
-            raise Exception('Test Test')
             arr = session.query(Stock).all()
             for item in arr:
                 print(item.symbol, item.name)
@@ -27,9 +25,38 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
             print(e)
             context.set_details(str(e))
             context.set_code(grpc.StatusCode.UNKNOWN)
-            #yield SymbolPair()
         finally:
             session.close()
+
+    def get_symbol(self, request, context):
+        try:
+            session = start_session(engine)
+            symbol = session.query(Stock).filter_by(symbol=request.symbol).first()
+            return SymbolPair(symbol=symbol.symbol, name=symbol.name)
+        except Exception as e:
+            print(e)
+            context.set_details(str(e))
+            context.set_code(grpc.StatusCode.UNKNOWN)
+        finally:
+            session.close()
+
+    def upsert_symbols(self, request_iterator, context):
+        try:
+            print('AAAA')
+            session = start_session(engine)
+            rows = []
+            print(request_iterator)
+            for item in request_iterator:
+                print(item)
+            #rowcount = upsert(session, Stock, )
+        except Exception as e:
+            print(e)
+            context.set_details(str(e))
+            context.set_code(grpc.StatusCode.UNKNOWN)
+        finally:
+            session.close()
+
+
 
 
 def serve():

@@ -18,16 +18,16 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
         try:
             print(request)
             session = start_session(engine)
+            raise Exception('Test Test')
             arr = session.query(Stock).all()
-            #print(arr)
             for item in arr:
                 print(item.symbol, item.name)
                 yield SymbolPair(symbol=item.symbol, name=item.name)
         except Exception as e:
             print(e)
-            context.set_details(e)
+            context.set_details(str(e))
             context.set_code(grpc.StatusCode.UNKNOWN)
-            yield SymbolPair()
+            #yield SymbolPair()
         finally:
             session.close()
 

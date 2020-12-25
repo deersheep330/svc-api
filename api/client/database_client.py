@@ -68,6 +68,19 @@ def insert_twse_over_bought(_dict):
         print(e.details())
         print(status_code.name, status_code.value)
 
+def insert_twse_over_sold(_dict):
+    try:
+        rowcount = stub.insert_twse_over_sold(BoughtOrSold(
+            symbol=_dict['symbol'],
+            date=_dict['date'],
+            quantity=_dict['quantity']
+        ))
+        print(rowcount)
+    except grpc.RpcError as e:
+        status_code = e.code()
+        print(e.details())
+        print(status_code.name, status_code.value)
+
 if __name__ == '__main__':
 
     #get_stocks()
@@ -92,7 +105,7 @@ if __name__ == '__main__':
         'popularity': 350
     })
     '''
-
+    '''
     timestamp = Timestamp()
     today = datetime.datetime.now() - timedelta(days=180)
     timestamp.FromDatetime(today)
@@ -100,4 +113,13 @@ if __name__ == '__main__':
         'symbol': 'T',
         'date': timestamp,
         'quantity': 3600
+    })
+    '''
+    timestamp = Timestamp()
+    today = datetime.datetime.now() - timedelta(days=90)
+    timestamp.FromDatetime(today)
+    insert_twse_over_sold({
+        'symbol': 'O',
+        'date': timestamp,
+        'quantity': 1200
     })

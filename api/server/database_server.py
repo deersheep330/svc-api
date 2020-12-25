@@ -2,7 +2,7 @@ from concurrent import futures
 
 from api.db import get_db_hostname, create_engine, start_session, upsert, insert
 from api.models import Stock as StockModel
-from api.models import PttTrend, ReunionTrend, TwseOverBought, TwseOverSold
+from api.models import PttTrend, ReunionTrend, TwseOverBought, TwseOverSold, FugleOverBought
 from api.protos import database_pb2_grpc
 from api.protos.database_pb2 import Stock, RowCount
 
@@ -111,6 +111,23 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
         try:
             session = start_session(engine)
             rowcount = insert(session, TwseOverSold, {
+                'symbol': request.symbol,
+                'date': request.date.ToDatetime(),
+                'quantity': request.quantity
+            })
+            session.commit()
+            return RowCount(rowcount=rowcount)
+        except Exception as e:
+            print(e)
+            context.set_details(str(e))
+            context.set_code(grpc.StatusCode.UNKNOWN)
+        finally:
+            session.close()
+
+    def insert_fugle_over_bought(self, request, context):
+        try:
+            session = start_session(engine)
+            rowcount = insert(session, FugleOverBought, {
                 'symbol': request.symbol,
                 'date': request.date.ToDatetime(),
                 'quantity': request.quantity

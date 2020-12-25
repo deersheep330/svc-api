@@ -1,5 +1,5 @@
 from api.protos import database_pb2_grpc
-from api.protos.database_pb2 import Symbol, Stock
+from api.protos.database_pb2 import Symbol, Stock, TrendWithDefaultDate
 import grpc
 from google.protobuf.empty_pb2 import Empty
 
@@ -34,15 +34,29 @@ def upsert_stocks(_dict):
         print(e.details())
         print(status_code.name, status_code.value)
 
+def insert_ptt_trend(_dict):
+    try:
+        rowcount = stub.insert_ptt_trend(TrendWithDefaultDate(symbol=_dict['symbol'], popularity=_dict['popularity']))
+        print(rowcount)
+    except grpc.RpcError as e:
+        status_code = e.code()
+        print(e.details())
+        print(status_code.name, status_code.value)
+
 if __name__ == '__main__':
 
     #get_stocks()
     #get_stock('AAPL')
-
+    '''
     _dict = {
         'AAPL': '蘋果',
         '2330': '台積電',
         '2303': '聯電'
     }
     upsert_stocks(_dict)
+    '''
+    insert_ptt_trend({
+        'symbol': 'AAPL',
+        'popularity': 666
+    })
 

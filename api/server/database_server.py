@@ -1,7 +1,8 @@
 from concurrent import futures
 
-from api.db import get_db_hostname, create_engine, start_session, upsert
+from api.db import get_db_hostname, create_engine, start_session, upsert, insert
 from api.models import Stock as StockModel
+from api.models import PttTrend
 from api.protos import database_pb2_grpc
 from api.protos.database_pb2 import Stock, RowCount
 
@@ -57,7 +58,21 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
         finally:
             session.close()
 
-
+    def insert_ptt_trend(self, request, context):
+        try:
+            session = start_session(engine)
+            rowcount = insert(session, PttTrend, {
+                'symbol': request.symbol,
+                'popularity': request.popularity
+            })
+            session.commit()
+            return RowCount(rowcount=rowcount)
+        except Exception as e:
+            print(e)
+            context.set_details(str(e))
+            context.set_code(grpc.StatusCode.UNKNOWN)
+        finally:
+            session.close()
 
 
 def serve():

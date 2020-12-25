@@ -71,9 +71,10 @@ def insert(session, model, _dict):
 
     stmt = mysql_insert(table).values(_dict)
 
-    #print(compile_query(stmt))
+    print(compile_query(stmt))
     res = session.execute(stmt)
     print(f'{res.rowcount} row(s) matched')
+    return res.rowcount
 
 def upsert(session, model, rows):
 

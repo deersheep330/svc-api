@@ -5,167 +5,160 @@ from google.protobuf.empty_pb2 import Empty
 from google.protobuf.timestamp_pb2 import Timestamp
 import datetime
 from datetime import timedelta
+import unittest
 
-channel = grpc.insecure_channel('localhost:50051')
-stub = database_pb2_grpc.DatabaseStub(channel)
+class TestGRPCClient(unittest.TestCase):
 
-def get_stocks():
-    try:
-        symbols = stub.get_stocks(Empty())
-        for symbol in symbols:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        channel = grpc.insecure_channel('localhost:6565')
+        self.stub = database_pb2_grpc.DatabaseStub(channel)
+
+    def test_get_stocks(self):
+        try:
+            symbols = self.stub.get_stocks(Empty())
+            print(f'get {len(list(symbols))} symbols')
+            #for symbol in symbols:
+            #    print(symbol.symbol, symbol.name)
+        except grpc.RpcError as e:
+            status_code = e.code()
+            print(e.details())
+            print(status_code.name, status_code.value)
+
+    def test_get_stock(self):
+        symbol = 'AAPL'
+        try:
+            symbol = self.stub.get_stock(Symbol(symbol=symbol))
             print(symbol.symbol, symbol.name)
-    except grpc.RpcError as e:
-        status_code = e.code()
-        print(e.details())
-        print(status_code.name, status_code.value)
+        except grpc.RpcError as e:
+            status_code = e.code()
+            print(e.details())
+            print(status_code.name, status_code.value)
 
-def get_stock(symbol):
-    try:
-        symbol = stub.get_stock(Symbol(symbol=symbol))
-        print(symbol.symbol, symbol.name)
-    except grpc.RpcError as e:
-        status_code = e.code()
-        print(e.details())
-        print(status_code.name, status_code.value)
+    def test_upsert_stocks(self):
+        _dict = {
+            'AAPL': '蘋果',
+            '2330': '台積電',
+            '2303': '聯電'
+        }
+        try:
+            rowcount = self.stub.upsert_stocks((Stock(symbol=key, name=value) for key,value in _dict.items()))
+            print(rowcount)
+        except grpc.RpcError as e:
+            status_code = e.code()
+            print(e.details())
+            print(status_code.name, status_code.value)
 
-def upsert_stocks(_dict):
-    try:
-        rowcount = stub.upsert_stocks((Stock(symbol=key, name=value) for key,value in _dict.items()))
-        print(rowcount)
-    except grpc.RpcError as e:
-        status_code = e.code()
-        print(e.details())
-        print(status_code.name, status_code.value)
+    def test_insert_ptt_trend(self):
+        _dict = {
+            'symbol': 'AAPL',
+            'popularity': 666
+        }
+        try:
+            rowcount = self.stub.insert_ptt_trend(TrendWithDefaultDate(symbol=_dict['symbol'], popularity=_dict['popularity']))
+            print(rowcount)
+        except grpc.RpcError as e:
+            status_code = e.code()
+            print(e.details())
+            print(status_code.name, status_code.value)
 
-def insert_ptt_trend(_dict):
-    try:
-        rowcount = stub.insert_ptt_trend(TrendWithDefaultDate(symbol=_dict['symbol'], popularity=_dict['popularity']))
-        print(rowcount)
-    except grpc.RpcError as e:
-        status_code = e.code()
-        print(e.details())
-        print(status_code.name, status_code.value)
+    def test_insert_reunion_trend(self):
+        _dict = {
+            'symbol': 'RHP',
+            'popularity': 350
+        }
+        try:
+            rowcount = self.stub.insert_reunion_trend(TrendWithDefaultDate(symbol=_dict['symbol'], popularity=_dict['popularity']))
+            print(rowcount)
+        except grpc.RpcError as e:
+            status_code = e.code()
+            print(e.details())
+            print(status_code.name, status_code.value)
 
-def insert_reunion_trend(_dict):
-    try:
-        rowcount = stub.insert_reunion_trend(TrendWithDefaultDate(symbol=_dict['symbol'], popularity=_dict['popularity']))
-        print(rowcount)
-    except grpc.RpcError as e:
-        status_code = e.code()
-        print(e.details())
-        print(status_code.name, status_code.value)
+    def test_insert_twse_over_bought(self):
+        timestamp = Timestamp()
+        today = datetime.datetime.now() - timedelta(days=180)
+        timestamp.FromDatetime(today)
+        _dict = {
+            'symbol': 'T',
+            'date': timestamp,
+            'quantity': 3600
+        }
+        try:
+            rowcount = self.stub.insert_twse_over_bought(BoughtOrSold(
+                symbol=_dict['symbol'],
+                date=_dict['date'],
+                quantity=_dict['quantity']
+            ))
+            print(rowcount)
+        except grpc.RpcError as e:
+            status_code = e.code()
+            print(e.details())
+            print(status_code.name, status_code.value)
 
-def insert_twse_over_bought(_dict):
-    try:
-        rowcount = stub.insert_twse_over_bought(BoughtOrSold(
-            symbol=_dict['symbol'],
-            date=_dict['date'],
-            quantity=_dict['quantity']
-        ))
-        print(rowcount)
-    except grpc.RpcError as e:
-        status_code = e.code()
-        print(e.details())
-        print(status_code.name, status_code.value)
+    def test_insert_twse_over_sold(self):
+        timestamp = Timestamp()
+        today = datetime.datetime.now() - timedelta(days=90)
+        timestamp.FromDatetime(today)
+        _dict = {
+            'symbol': 'O',
+            'date': timestamp,
+            'quantity': 1200
+        }
+        try:
+            rowcount = self.stub.insert_twse_over_sold(BoughtOrSold(
+                symbol=_dict['symbol'],
+                date=_dict['date'],
+                quantity=_dict['quantity']
+            ))
+            print(rowcount)
+        except grpc.RpcError as e:
+            status_code = e.code()
+            print(e.details())
+            print(status_code.name, status_code.value)
 
-def insert_twse_over_sold(_dict):
-    try:
-        rowcount = stub.insert_twse_over_sold(BoughtOrSold(
-            symbol=_dict['symbol'],
-            date=_dict['date'],
-            quantity=_dict['quantity']
-        ))
-        print(rowcount)
-    except grpc.RpcError as e:
-        status_code = e.code()
-        print(e.details())
-        print(status_code.name, status_code.value)
+    def test_insert_fugle_over_bought(self):
+        timestamp = Timestamp()
+        today = datetime.datetime.now() - timedelta(days=45)
+        timestamp.FromDatetime(today)
+        _dict = {
+            'symbol': 'TOT',
+            'date': timestamp,
+            'quantity': 400
+        }
+        try:
+            rowcount = self.stub.insert_fugle_over_bought(BoughtOrSold(
+                symbol=_dict['symbol'],
+                date=_dict['date'],
+                quantity=_dict['quantity']
+            ))
+            print(rowcount)
+        except grpc.RpcError as e:
+            status_code = e.code()
+            print(e.details())
+            print(status_code.name, status_code.value)
 
-def insert_fugle_over_bought(_dict):
-    try:
-        rowcount = stub.insert_fugle_over_bought(BoughtOrSold(
-            symbol=_dict['symbol'],
-            date=_dict['date'],
-            quantity=_dict['quantity']
-        ))
-        print(rowcount)
-    except grpc.RpcError as e:
-        status_code = e.code()
-        print(e.details())
-        print(status_code.name, status_code.value)
-
-def insert_fugle_over_sold(_dict):
-    try:
-        rowcount = stub.insert_fugle_over_sold(BoughtOrSold(
-            symbol=_dict['symbol'],
-            date=_dict['date'],
-            quantity=_dict['quantity']
-        ))
-        print(rowcount)
-    except grpc.RpcError as e:
-        status_code = e.code()
-        print(e.details())
-        print(status_code.name, status_code.value)
+    def test_insert_fugle_over_sold(self):
+        timestamp = Timestamp()
+        today = datetime.datetime.now() - timedelta(days=45)
+        timestamp.FromDatetime(today)
+        _dict = {
+            'symbol': 'CCL',
+            'date': timestamp,
+            'quantity': 4000
+        }
+        try:
+            rowcount = self.stub.insert_fugle_over_sold(BoughtOrSold(
+                symbol=_dict['symbol'],
+                date=_dict['date'],
+                quantity=_dict['quantity']
+            ))
+            print(rowcount)
+        except grpc.RpcError as e:
+            status_code = e.code()
+            print(e.details())
+            print(status_code.name, status_code.value)
 
 if __name__ == '__main__':
 
-    #get_stocks()
-    #get_stock('AAPL')
-    '''
-    _dict = {
-        'AAPL': '蘋果',
-        '2330': '台積電',
-        '2303': '聯電'
-    }
-    upsert_stocks(_dict)
-    '''
-    '''
-    insert_ptt_trend({
-        'symbol': 'AAPL',
-        'popularity': 666
-    })
-    '''
-    '''
-    insert_reunion_trend({
-        'symbol': 'RHP',
-        'popularity': 350
-    })
-    '''
-    '''
-    timestamp = Timestamp()
-    today = datetime.datetime.now() - timedelta(days=180)
-    timestamp.FromDatetime(today)
-    insert_twse_over_bought({
-        'symbol': 'T',
-        'date': timestamp,
-        'quantity': 3600
-    })
-    '''
-    '''
-    timestamp = Timestamp()
-    today = datetime.datetime.now() - timedelta(days=90)
-    timestamp.FromDatetime(today)
-    insert_twse_over_sold({
-        'symbol': 'O',
-        'date': timestamp,
-        'quantity': 1200
-    })
-    '''
-    '''
-    timestamp = Timestamp()
-    today = datetime.datetime.now() - timedelta(days=45)
-    timestamp.FromDatetime(today)
-    insert_fugle_over_bought({
-        'symbol': 'TOT',
-        'date': timestamp,
-        'quantity': 400
-    })
-    '''
-    timestamp = Timestamp()
-    today = datetime.datetime.now() - timedelta(days=45)
-    timestamp.FromDatetime(today)
-    insert_fugle_over_sold({
-        'symbol': 'CCL',
-        'date': timestamp,
-        'quantity': 4000
-    })
+    unittest.main()

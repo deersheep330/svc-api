@@ -160,9 +160,8 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    database_pb2_grpc.add_DatabaseServicer_to_server(
-        DatabaseServer(), server)
-    server.add_insecure_port('[::]:50051')
+    database_pb2_grpc.add_DatabaseServicer_to_server(DatabaseServer(), server)
+    server.add_insecure_port('[::]:6565')
     server.start()
     server.wait_for_termination()
 

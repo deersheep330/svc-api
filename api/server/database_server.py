@@ -162,6 +162,3 @@ def serve():
     server.add_insecure_port('[::]:6565')
     server.start()
     server.wait_for_termination()
-
-if __name__ == '__main__':
-    serve()

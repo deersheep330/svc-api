@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+  grpc:
+    image: 127.0.0.1:5000/api_grpc
+    build:
+      context: .
+      dockerfile: Dockerfile-grpc
+    volumes:
+      - ./api:/home/app/api
+      - ./start_grpc.py:/home/app/start_grpc.py
+    ports:
+      - 6565:6565
+
+networks:
+  default:
+    external:
+      name: svc-overlay-network

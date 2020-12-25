@@ -19,6 +19,3 @@ __pycache__
 
 # properties file
 *.ini
-
-# dump file
-*.txt

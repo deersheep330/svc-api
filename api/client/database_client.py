@@ -36,13 +36,13 @@ def upsert_stocks(_dict):
 
 if __name__ == '__main__':
 
-    get_stocks()
+    #get_stocks()
     #get_stock('AAPL')
-    '''
+
     _dict = {
-        'AAPL': '蘋果1',
-        '2330': '台積電1',
-        '2303': '聯電1'
+        'AAPL': '蘋果',
+        '2330': '台積電',
+        '2303': '聯電'
     }
     upsert_stocks(_dict)
-    '''
+

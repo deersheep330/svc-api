@@ -46,9 +46,9 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
             rows = []
             for stock in request_iterator:
                 rows.append([stock.symbol, stock.name])
-                print(stock.symbol, stock.name)
+                #print(stock.symbol, stock.name)
             rowcount = upsert(session, StockModel, rows)
-            #rowcount = upsert(session, StockModel, request_iterator)
+            session.commit()
             return RowCount(rowcount=rowcount)
         except Exception as e:
             print(e)

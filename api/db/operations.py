@@ -91,10 +91,10 @@ def upsert(session, model, rows):
             for pk in list(table.primary_key.columns):
                 del data_dict_wo_pk[pk.name]
             stmt = mysql_insert(table).values(data_dict)
-            print(f'data_dict = {data_dict}, wo pk = {data_dict_wo_pk}')
+            #print(f'data_dict = {data_dict}, wo pk = {data_dict_wo_pk}')
             upsert_stmt = stmt.on_duplicate_key_update(data_dict_wo_pk)
 
-            print(compile_query(upsert_stmt))
+            #print(compile_query(upsert_stmt))
             res = session.execute(upsert_stmt)
             if res.rowcount != 0:
                 rowcount += 1

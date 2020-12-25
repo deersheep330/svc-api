@@ -16,8 +16,8 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
         pass
 
     def get_stocks(self, request, context):
+        session = start_session(engine)
         try:
-            session = start_session(engine)
             arr = session.query(StockModel).all()
             for item in arr:
                 print(item.symbol, item.name)
@@ -30,8 +30,8 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
             session.close()
 
     def get_stock(self, request, context):
+        session = start_session(engine)
         try:
-            session = start_session(engine)
             symbol = session.query(StockModel).filter_by(symbol=request.symbol).first()
             return Stock(symbol=symbol.symbol, name=symbol.name)
         except Exception as e:
@@ -42,8 +42,8 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
             session.close()
 
     def upsert_stocks(self, request_iterator, context):
+        session = start_session(engine)
         try:
-            session = start_session(engine)
             rows = []
             for stock in request_iterator:
                 rows.append([stock.symbol, stock.name])
@@ -59,8 +59,8 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
             session.close()
 
     def insert_ptt_trend(self, request, context):
+        session = start_session(engine)
         try:
-            session = start_session(engine)
             rowcount = insert(session, PttTrend, {
                 'symbol': request.symbol,
                 'popularity': request.popularity
@@ -75,8 +75,8 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
             session.close()
 
     def insert_reunion_trend(self, request, context):
+        session = start_session(engine)
         try:
-            session = start_session(engine)
             rowcount = insert(session, ReunionTrend, {
                 'symbol': request.symbol,
                 'popularity': request.popularity
@@ -91,8 +91,8 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
             session.close()
 
     def insert_twse_over_bought(self, request, context):
+        session = start_session(engine)
         try:
-            session = start_session(engine)
             rowcount = insert(session, TwseOverBought, {
                 'symbol': request.symbol,
                 'date': request.date.ToDatetime(),
@@ -108,8 +108,8 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
             session.close()
 
     def insert_twse_over_sold(self, request, context):
+        session = start_session(engine)
         try:
-            session = start_session(engine)
             rowcount = insert(session, TwseOverSold, {
                 'symbol': request.symbol,
                 'date': request.date.ToDatetime(),
@@ -125,8 +125,8 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
             session.close()
 
     def insert_fugle_over_bought(self, request, context):
+        session = start_session(engine)
         try:
-            session = start_session(engine)
             rowcount = insert(session, FugleOverBought, {
                 'symbol': request.symbol,
                 'date': request.date.ToDatetime(),
@@ -142,8 +142,8 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
             session.close()
 
     def insert_fugle_over_sold(self, request, context):
+        session = start_session(engine)
         try:
-            session = start_session(engine)
             rowcount = insert(session, FugleOverSold, {
                 'symbol': request.symbol,
                 'date': request.date.ToDatetime(),

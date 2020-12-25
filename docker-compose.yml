@@ -11,6 +11,16 @@ services:
       - ./start_grpc.py:/home/app/start_grpc.py
     ports:
       - 6565:6565
+  fast:
+    image: 127.0.0.1:5000/api_fast
+    build:
+      context: .
+      dockerfile: Dockerfile-fast
+    volumes:
+      - ./api:/home/app/api
+      - ./start_fastapi.py:/home/app/start_fastapi.py
+    ports:
+      - 7654:7654
 
 networks:
   default:

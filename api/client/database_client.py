@@ -94,6 +94,19 @@ def insert_fugle_over_bought(_dict):
         print(e.details())
         print(status_code.name, status_code.value)
 
+def insert_fugle_over_sold(_dict):
+    try:
+        rowcount = stub.insert_fugle_over_sold(BoughtOrSold(
+            symbol=_dict['symbol'],
+            date=_dict['date'],
+            quantity=_dict['quantity']
+        ))
+        print(rowcount)
+    except grpc.RpcError as e:
+        status_code = e.code()
+        print(e.details())
+        print(status_code.name, status_code.value)
+
 if __name__ == '__main__':
 
     #get_stocks()
@@ -138,6 +151,7 @@ if __name__ == '__main__':
         'quantity': 1200
     })
     '''
+    '''
     timestamp = Timestamp()
     today = datetime.datetime.now() - timedelta(days=45)
     timestamp.FromDatetime(today)
@@ -145,4 +159,13 @@ if __name__ == '__main__':
         'symbol': 'TOT',
         'date': timestamp,
         'quantity': 400
+    })
+    '''
+    timestamp = Timestamp()
+    today = datetime.datetime.now() - timedelta(days=45)
+    timestamp.FromDatetime(today)
+    insert_fugle_over_sold({
+        'symbol': 'CCL',
+        'date': timestamp,
+        'quantity': 4000
     })

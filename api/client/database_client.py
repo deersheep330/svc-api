@@ -43,6 +43,15 @@ def insert_ptt_trend(_dict):
         print(e.details())
         print(status_code.name, status_code.value)
 
+def insert_reunion_trend(_dict):
+    try:
+        rowcount = stub.insert_reunion_trend(TrendWithDefaultDate(symbol=_dict['symbol'], popularity=_dict['popularity']))
+        print(rowcount)
+    except grpc.RpcError as e:
+        status_code = e.code()
+        print(e.details())
+        print(status_code.name, status_code.value)
+
 if __name__ == '__main__':
 
     #get_stocks()
@@ -55,8 +64,14 @@ if __name__ == '__main__':
     }
     upsert_stocks(_dict)
     '''
+    '''
     insert_ptt_trend({
         'symbol': 'AAPL',
         'popularity': 666
+    })
+    '''
+    insert_reunion_trend({
+        'symbol': 'RHP',
+        'popularity': 350
     })
 

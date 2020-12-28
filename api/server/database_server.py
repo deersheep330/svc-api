@@ -1,6 +1,7 @@
 from concurrent import futures
 
-from api.db import get_db_hostname, create_engine, start_session, upsert, insert
+from api.utils import get_db_hostname
+from api.db import create_engine, start_session, upsert, insert
 from api.models import Stock as StockModel
 from api.models import PttTrend, ReunionTrend, TwseOverBought, TwseOverSold, FugleOverBought, FugleOverSold
 from api.protos import database_pb2_grpc

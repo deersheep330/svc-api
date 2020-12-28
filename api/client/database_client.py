@@ -1,5 +1,3 @@
-from api.protos import database_pb2_grpc
-from api.protos.database_pb2 import Symbol, Stock, TrendWithDefaultDate, BoughtOrSold
 import grpc
 from google.protobuf.empty_pb2 import Empty
 from google.protobuf.timestamp_pb2 import Timestamp
@@ -7,11 +5,16 @@ import datetime
 from datetime import timedelta
 import unittest
 
+from api.protos import database_pb2_grpc
+from api.protos.database_pb2 import Symbol, Stock, TrendWithDefaultDate, BoughtOrSold
+
+from api.utils import get_grpc_hostname
+
 class TestGRPCClient(unittest.TestCase):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        channel = grpc.insecure_channel('localhost:6565')
+        channel = grpc.insecure_channel(f'{get_grpc_hostname()}:6565')
         self.stub = database_pb2_grpc.DatabaseStub(channel)
 
     def test_get_stocks(self):

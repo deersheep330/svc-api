@@ -1,12 +1,11 @@
 import grpc
-from google.protobuf.empty_pb2 import Empty
-from google.protobuf.timestamp_pb2 import Timestamp
 import datetime
 from datetime import timedelta
 import unittest
 
 from api.protos import database_pb2_grpc
 from api.protos.database_pb2 import Symbol, Stock, TrendWithDefaultDate, BoughtOrSold
+from api.protos.protobuf_datatype_utils import Empty, Timestamp
 
 from api.utils import get_grpc_hostname
 

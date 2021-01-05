@@ -19,6 +19,8 @@ class TestGRPCClient(unittest.TestCase):
     def test_get_stocks(self):
         try:
             symbols = self.stub.get_stocks(Empty())
+            # read the stream result would cause read ptr shifting!
+            # and then cause the result cannot be read again!
             print(f'get {len(list(symbols))} symbols')
             #for symbol in symbols:
             #    print(symbol.symbol, symbol.name)

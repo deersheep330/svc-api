@@ -15,7 +15,8 @@ def create_engine(adapter, user, password, host, port, database):
         print('create new engine')
         create_engine.engine = __create_engine(f'{adapter}://{user}:{password}@{host}:{port}/{database}',
                                                pool_pre_ping=True,
-                                               pool_recycle=3600*7)
+                                               pool_recycle=3600*7,
+                                               echo=False)
         create_engine.engine.execute('SET GLOBAL max_allowed_packet=67108864;')
         return create_engine.engine
 

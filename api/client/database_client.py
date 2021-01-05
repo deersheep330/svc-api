@@ -4,8 +4,8 @@ from datetime import timedelta
 import unittest
 
 from api.protos import database_pb2_grpc
-from api.protos.database_pb2 import Symbol, Stock, TrendWithDefaultDate, BoughtOrSold
-from api.protos.protobuf_datatype_utils import Empty, Timestamp
+from api.protos.database_pb2 import Symbol, Stock, TrendWithDefaultDate, BoughtOrSold, StockPrice
+from api.protos.protobuf_datatype_utils import Empty, Timestamp, datetime_to_timestamp
 
 from api.utils import get_grpc_hostname
 
@@ -78,9 +78,7 @@ class TestGRPCClient(unittest.TestCase):
             print(status_code.name, status_code.value)
 
     def test_insert_twse_over_bought(self):
-        timestamp = Timestamp()
-        today = datetime.datetime.now() - timedelta(days=180)
-        timestamp.FromDatetime(today)
+        timestamp = datetime_to_timestamp(datetime.datetime.now() - timedelta(days=180))
         _dict = {
             'symbol': 'T',
             'date': timestamp,
@@ -99,9 +97,7 @@ class TestGRPCClient(unittest.TestCase):
             print(status_code.name, status_code.value)
 
     def test_insert_twse_over_sold(self):
-        timestamp = Timestamp()
-        today = datetime.datetime.now() - timedelta(days=90)
-        timestamp.FromDatetime(today)
+        timestamp = datetime_to_timestamp(datetime.datetime.now() - timedelta(days=90))
         _dict = {
             'symbol': 'O',
             'date': timestamp,
@@ -120,9 +116,7 @@ class TestGRPCClient(unittest.TestCase):
             print(status_code.name, status_code.value)
 
     def test_insert_fugle_over_bought(self):
-        timestamp = Timestamp()
-        today = datetime.datetime.now() - timedelta(days=45)
-        timestamp.FromDatetime(today)
+        timestamp = datetime_to_timestamp(datetime.datetime.now() - timedelta(days=45))
         _dict = {
             'symbol': 'TOT',
             'date': timestamp,
@@ -141,9 +135,7 @@ class TestGRPCClient(unittest.TestCase):
             print(status_code.name, status_code.value)
 
     def test_insert_fugle_over_sold(self):
-        timestamp = Timestamp()
-        today = datetime.datetime.now() - timedelta(days=45)
-        timestamp.FromDatetime(today)
+        timestamp = datetime_to_timestamp(datetime.datetime.now() - timedelta(days=22))
         _dict = {
             'symbol': 'CCL',
             'date': timestamp,
@@ -160,6 +152,64 @@ class TestGRPCClient(unittest.TestCase):
             status_code = e.code()
             print(e.details())
             print(status_code.name, status_code.value)
+
+    def test_insert_twse_open_price(self):
+        timestamp = datetime_to_timestamp(datetime.datetime.now() - timedelta(days=60))
+        _dict = {
+            'symbol': '2330',
+            'date': timestamp,
+            'price': 500.5
+        }
+        try:
+            rowcount = self.stub.insert_twse_open_price(StockPrice(
+                symbol=_dict['symbol'],
+                date=_dict['date'],
+                price=_dict['price']
+            ))
+            print(rowcount)
+        except grpc.RpcError as e:
+            status_code = e.code()
+            print(e.details())
+            print(status_code.name, status_code.value)
+
+    def test_insert_twse_close_price(self):
+        timestamp = datetime_to_timestamp(datetime.datetime.now() - timedelta(days=30))
+        _dict = {
+            'symbol': '2303',
+            'date': timestamp,
+            'price': 12
+        }
+        try:
+            rowcount = self.stub.insert_twse_close_price(StockPrice(
+                symbol=_dict['symbol'],
+                date=_dict['date'],
+                price=_dict['price']
+            ))
+            print(rowcount)
+        except grpc.RpcError as e:
+            status_code = e.code()
+            print(e.details())
+            print(status_code.name, status_code.value)
+
+    def test_insert_us_close_price(self):
+        timestamp = datetime_to_timestamp(datetime.datetime.now() - timedelta(days=20))
+        _dict = {
+            'symbol': 'AAPL',
+            'date': timestamp,
+            'price': 12.33
+        }
+        try:
+            rowcount = self.stub.insert_us_close_price(StockPrice(
+                symbol=_dict['symbol'],
+                date=_dict['date'],
+                price=_dict['price']
+            ))
+            print(rowcount)
+        except grpc.RpcError as e:
+            status_code = e.code()
+            print(e.details())
+            print(status_code.name, status_code.value)
+
 
 if __name__ == '__main__':
 

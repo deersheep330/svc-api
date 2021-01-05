@@ -60,6 +60,21 @@ class DatabaseStub(object):
                 request_serializer=api_dot_protos_dot_database__pb2.BoughtOrSold.SerializeToString,
                 response_deserializer=api_dot_protos_dot_database__pb2.RowCount.FromString,
                 )
+        self.insert_twse_open_price = channel.unary_unary(
+                '/Database/insert_twse_open_price',
+                request_serializer=api_dot_protos_dot_database__pb2.StockPrice.SerializeToString,
+                response_deserializer=api_dot_protos_dot_database__pb2.RowCount.FromString,
+                )
+        self.insert_twse_close_price = channel.unary_unary(
+                '/Database/insert_twse_close_price',
+                request_serializer=api_dot_protos_dot_database__pb2.StockPrice.SerializeToString,
+                response_deserializer=api_dot_protos_dot_database__pb2.RowCount.FromString,
+                )
+        self.insert_us_close_price = channel.unary_unary(
+                '/Database/insert_us_close_price',
+                request_serializer=api_dot_protos_dot_database__pb2.StockPrice.SerializeToString,
+                response_deserializer=api_dot_protos_dot_database__pb2.RowCount.FromString,
+                )
 
 
 class DatabaseServicer(object):
@@ -119,6 +134,24 @@ class DatabaseServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def insert_twse_open_price(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def insert_twse_close_price(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def insert_us_close_price(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_DatabaseServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -165,6 +198,21 @@ def add_DatabaseServicer_to_server(servicer, server):
             'insert_fugle_over_sold': grpc.unary_unary_rpc_method_handler(
                     servicer.insert_fugle_over_sold,
                     request_deserializer=api_dot_protos_dot_database__pb2.BoughtOrSold.FromString,
+                    response_serializer=api_dot_protos_dot_database__pb2.RowCount.SerializeToString,
+            ),
+            'insert_twse_open_price': grpc.unary_unary_rpc_method_handler(
+                    servicer.insert_twse_open_price,
+                    request_deserializer=api_dot_protos_dot_database__pb2.StockPrice.FromString,
+                    response_serializer=api_dot_protos_dot_database__pb2.RowCount.SerializeToString,
+            ),
+            'insert_twse_close_price': grpc.unary_unary_rpc_method_handler(
+                    servicer.insert_twse_close_price,
+                    request_deserializer=api_dot_protos_dot_database__pb2.StockPrice.FromString,
+                    response_serializer=api_dot_protos_dot_database__pb2.RowCount.SerializeToString,
+            ),
+            'insert_us_close_price': grpc.unary_unary_rpc_method_handler(
+                    servicer.insert_us_close_price,
+                    request_deserializer=api_dot_protos_dot_database__pb2.StockPrice.FromString,
                     response_serializer=api_dot_protos_dot_database__pb2.RowCount.SerializeToString,
             ),
     }
@@ -326,6 +374,57 @@ class Database(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Database/insert_fugle_over_sold',
             api_dot_protos_dot_database__pb2.BoughtOrSold.SerializeToString,
+            api_dot_protos_dot_database__pb2.RowCount.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def insert_twse_open_price(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/Database/insert_twse_open_price',
+            api_dot_protos_dot_database__pb2.StockPrice.SerializeToString,
+            api_dot_protos_dot_database__pb2.RowCount.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def insert_twse_close_price(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/Database/insert_twse_close_price',
+            api_dot_protos_dot_database__pb2.StockPrice.SerializeToString,
+            api_dot_protos_dot_database__pb2.RowCount.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def insert_us_close_price(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/Database/insert_us_close_price',
+            api_dot_protos_dot_database__pb2.StockPrice.SerializeToString,
             api_dot_protos_dot_database__pb2.RowCount.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

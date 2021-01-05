@@ -4,6 +4,7 @@ from api.utils import get_db_hostname
 from api.db import create_engine, start_session, upsert, insert
 from api.models import Stock as StockModel
 from api.models import PttTrend, ReunionTrend, TwseOverBought, TwseOverSold, FugleOverBought, FugleOverSold
+from api.models import TwseOpenPrice, TwseClosePrice, UsClosePrice
 from api.protos import database_pb2_grpc
 from api.protos.database_pb2 import Stock, RowCount
 
@@ -147,6 +148,57 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
                 'symbol': request.symbol,
                 'date': request.date.ToDatetime(),
                 'quantity': request.quantity
+            })
+            session.commit()
+            return RowCount(rowcount=rowcount)
+        except Exception as e:
+            print(e)
+            context.set_details(str(e))
+            context.set_code(grpc.StatusCode.UNKNOWN)
+        finally:
+            session.close()
+
+    def insert_twse_open_price(self, request, context):
+        session = start_session(self.engine)
+        try:
+            rowcount = insert(session, TwseOpenPrice, {
+                'symbol': request.symbol,
+                'date': request.date.ToDatetime(),
+                'price': request.price
+            })
+            session.commit()
+            return RowCount(rowcount=rowcount)
+        except Exception as e:
+            print(e)
+            context.set_details(str(e))
+            context.set_code(grpc.StatusCode.UNKNOWN)
+        finally:
+            session.close()
+
+    def insert_twse_close_price(self, request, context):
+        session = start_session(self.engine)
+        try:
+            rowcount = insert(session, TwseClosePrice, {
+                'symbol': request.symbol,
+                'date': request.date.ToDatetime(),
+                'price': request.price
+            })
+            session.commit()
+            return RowCount(rowcount=rowcount)
+        except Exception as e:
+            print(e)
+            context.set_details(str(e))
+            context.set_code(grpc.StatusCode.UNKNOWN)
+        finally:
+            session.close()
+
+    def insert_us_close_price(self, request, context):
+        session = start_session(self.engine)
+        try:
+            rowcount = insert(session, UsClosePrice, {
+                'symbol': request.symbol,
+                'date': request.date.ToDatetime(),
+                'price': request.price
             })
             session.commit()
             return RowCount(rowcount=rowcount)

@@ -13,6 +13,14 @@ from api.protos.database_pb2 import Stock, RowCount, BoughtOrSold
 
 import grpc
 
+null_date = datetime.strptime('1970-01-01', "%Y-%m-%d").date()
+
+def is_timestamp_null(timestamp):
+    if timestamp.ToDatetime().date() == null_date:
+        return True
+    else:
+        return False
+
 class DatabaseServer(database_pb2_grpc.DatabaseServicer):
 
     def __init__(self):
@@ -167,10 +175,12 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
 
     def insert_fugle_over_bought(self, request, context):
         session = start_session(self.engine)
+        print(request)
+        date = None if is_timestamp_null(request.date) else request.date.ToDatetime().date()
         try:
             rowcount = insert(session, FugleOverBought, {
                 'symbol': request.symbol,
-                'date': request.date.ToDatetime().date(),
+                'date': date,
                 'quantity': request.quantity
             })
             session.commit()
@@ -184,10 +194,12 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
 
     def insert_fugle_over_sold(self, request, context):
         session = start_session(self.engine)
+        date = None if is_timestamp_null(request.date) else request.date.ToDatetime().date()
+        print(f'date = {request.date} {request.date is None} {type(request.date)}')
         try:
             rowcount = insert(session, FugleOverSold, {
                 'symbol': request.symbol,
-                'date': request.date.ToDatetime().date(),
+                'date': date,
                 'quantity': request.quantity
             })
             session.commit()

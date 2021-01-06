@@ -1,4 +1,7 @@
 from concurrent import futures
+from datetime import datetime
+
+from google.protobuf.timestamp_pb2 import Timestamp
 
 from api.utils import get_db_hostname
 from api.db import create_engine, start_session, upsert, insert
@@ -6,7 +9,7 @@ from api.models import Stock as StockModel
 from api.models import PttTrend, ReunionTrend, TwseOverBought, TwseOverSold, FugleOverBought, FugleOverSold
 from api.models import TwseOpenPrice, TwseClosePrice, UsClosePrice
 from api.protos import database_pb2_grpc
-from api.protos.database_pb2 import Stock, RowCount
+from api.protos.database_pb2 import Stock, RowCount, BoughtOrSold
 
 import grpc
 
@@ -95,7 +98,7 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
         try:
             rowcount = insert(session, TwseOverBought, {
                 'symbol': request.symbol,
-                'date': request.date.ToDatetime(),
+                'date': request.date.ToDatetime().date(),
                 'quantity': request.quantity
             })
             session.commit()
@@ -112,11 +115,49 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
         try:
             rowcount = insert(session, TwseOverSold, {
                 'symbol': request.symbol,
-                'date': request.date.ToDatetime(),
+                'date': request.date.ToDatetime().date(),
                 'quantity': request.quantity
             })
             session.commit()
             return RowCount(rowcount=rowcount)
+        except Exception as e:
+            print(e)
+            context.set_details(str(e))
+            context.set_code(grpc.StatusCode.UNKNOWN)
+        finally:
+            session.close()
+
+    def query_twse_over_bought_by_date(self, request, context):
+        session = start_session(self.engine)
+        try:
+            twse_over_boughts = session.query(TwseOverBought).filter_by(date=request.ToDatetime().date()).all()
+            for item in twse_over_boughts:
+                timestamp = Timestamp()
+                timestamp.FromDatetime(datetime(year=item.date.year, month=item.date.month, day=item.date.day))
+                yield BoughtOrSold(
+                    symbol=item.symbol,
+                    date=timestamp,
+                    quantity=item.quantity
+                )
+        except Exception as e:
+            print(e)
+            context.set_details(str(e))
+            context.set_code(grpc.StatusCode.UNKNOWN)
+        finally:
+            session.close()
+
+    def query_twse_over_sold_by_date(self, request, context):
+        session = start_session(self.engine)
+        try:
+            twse_over_solds = session.query(TwseOverSold).filter_by(date=request.ToDatetime().date()).all()
+            for item in twse_over_solds:
+                timestamp = Timestamp()
+                timestamp.FromDatetime(datetime(year=item.date.year, month=item.date.month, day=item.date.day))
+                yield BoughtOrSold(
+                    symbol=item.symbol,
+                    date=timestamp,
+                    quantity=item.quantity
+                )
         except Exception as e:
             print(e)
             context.set_details(str(e))
@@ -129,7 +170,7 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
         try:
             rowcount = insert(session, FugleOverBought, {
                 'symbol': request.symbol,
-                'date': request.date.ToDatetime(),
+                'date': request.date.ToDatetime().date(),
                 'quantity': request.quantity
             })
             session.commit()
@@ -146,7 +187,7 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
         try:
             rowcount = insert(session, FugleOverSold, {
                 'symbol': request.symbol,
-                'date': request.date.ToDatetime(),
+                'date': request.date.ToDatetime().date(),
                 'quantity': request.quantity
             })
             session.commit()
@@ -163,7 +204,7 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
         try:
             rowcount = insert(session, TwseOpenPrice, {
                 'symbol': request.symbol,
-                'date': request.date.ToDatetime(),
+                'date': request.date.ToDatetime().date(),
                 'price': request.price
             })
             session.commit()
@@ -180,7 +221,7 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
         try:
             rowcount = insert(session, TwseClosePrice, {
                 'symbol': request.symbol,
-                'date': request.date.ToDatetime(),
+                'date': request.date.ToDatetime().date(),
                 'price': request.price
             })
             session.commit()
@@ -197,7 +238,7 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
         try:
             rowcount = insert(session, UsClosePrice, {
                 'symbol': request.symbol,
-                'date': request.date.ToDatetime(),
+                'date': request.date.ToDatetime().date(),
                 'price': request.price
             })
             session.commit()

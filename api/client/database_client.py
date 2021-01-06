@@ -117,6 +117,28 @@ class TestGRPCClient(unittest.TestCase):
             print(e.details())
             print(status_code.name, status_code.value)
 
+    def test_query_twse_over_bought_by_date(self):
+        timestamp = datetime_to_timestamp(datetime.datetime.now() - timedelta(days=1))
+        try:
+            res = self.stub.query_twse_over_bought_by_date(timestamp)
+            for item in res:
+                print(item.symbol, item.date.ToDatetime().date(), item.quantity)
+        except grpc.RpcError as e:
+            status_code = e.code()
+            print(e.details())
+            print(status_code.name, status_code.value)
+
+    def test_query_twse_over_sold_by_date(self):
+        timestamp = datetime_to_timestamp(datetime.datetime.now() - timedelta(days=1))
+        try:
+            res = self.stub.query_twse_over_sold_by_date(timestamp)
+            for item in res:
+                print(item.symbol, item.date.ToDatetime().date(), item.quantity)
+        except grpc.RpcError as e:
+            status_code = e.code()
+            print(e.details())
+            print(status_code.name, status_code.value)
+
     def test_insert_fugle_over_bought(self):
         timestamp = datetime_to_timestamp(datetime.datetime.now() - timedelta(days=45))
         _dict = {

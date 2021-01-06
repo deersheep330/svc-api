@@ -4,6 +4,7 @@ import grpc
 
 from api.protos import database_pb2 as api_dot_protos_dot_database__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
+from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
 class DatabaseStub(object):
@@ -49,6 +50,16 @@ class DatabaseStub(object):
                 '/Database/insert_twse_over_sold',
                 request_serializer=api_dot_protos_dot_database__pb2.BoughtOrSold.SerializeToString,
                 response_deserializer=api_dot_protos_dot_database__pb2.RowCount.FromString,
+                )
+        self.query_twse_over_bought_by_date = channel.unary_stream(
+                '/Database/query_twse_over_bought_by_date',
+                request_serializer=google_dot_protobuf_dot_timestamp__pb2.Timestamp.SerializeToString,
+                response_deserializer=api_dot_protos_dot_database__pb2.BoughtOrSold.FromString,
+                )
+        self.query_twse_over_sold_by_date = channel.unary_stream(
+                '/Database/query_twse_over_sold_by_date',
+                request_serializer=google_dot_protobuf_dot_timestamp__pb2.Timestamp.SerializeToString,
+                response_deserializer=api_dot_protos_dot_database__pb2.BoughtOrSold.FromString,
                 )
         self.insert_fugle_over_bought = channel.unary_unary(
                 '/Database/insert_fugle_over_bought',
@@ -122,6 +133,18 @@ class DatabaseServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def query_twse_over_bought_by_date(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def query_twse_over_sold_by_date(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def insert_fugle_over_bought(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -189,6 +212,16 @@ def add_DatabaseServicer_to_server(servicer, server):
                     servicer.insert_twse_over_sold,
                     request_deserializer=api_dot_protos_dot_database__pb2.BoughtOrSold.FromString,
                     response_serializer=api_dot_protos_dot_database__pb2.RowCount.SerializeToString,
+            ),
+            'query_twse_over_bought_by_date': grpc.unary_stream_rpc_method_handler(
+                    servicer.query_twse_over_bought_by_date,
+                    request_deserializer=google_dot_protobuf_dot_timestamp__pb2.Timestamp.FromString,
+                    response_serializer=api_dot_protos_dot_database__pb2.BoughtOrSold.SerializeToString,
+            ),
+            'query_twse_over_sold_by_date': grpc.unary_stream_rpc_method_handler(
+                    servicer.query_twse_over_sold_by_date,
+                    request_deserializer=google_dot_protobuf_dot_timestamp__pb2.Timestamp.FromString,
+                    response_serializer=api_dot_protos_dot_database__pb2.BoughtOrSold.SerializeToString,
             ),
             'insert_fugle_over_bought': grpc.unary_unary_rpc_method_handler(
                     servicer.insert_fugle_over_bought,
@@ -341,6 +374,40 @@ class Database(object):
         return grpc.experimental.unary_unary(request, target, '/Database/insert_twse_over_sold',
             api_dot_protos_dot_database__pb2.BoughtOrSold.SerializeToString,
             api_dot_protos_dot_database__pb2.RowCount.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def query_twse_over_bought_by_date(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/Database/query_twse_over_bought_by_date',
+            google_dot_protobuf_dot_timestamp__pb2.Timestamp.SerializeToString,
+            api_dot_protos_dot_database__pb2.BoughtOrSold.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def query_twse_over_sold_by_date(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/Database/query_twse_over_sold_by_date',
+            google_dot_protobuf_dot_timestamp__pb2.Timestamp.SerializeToString,
+            api_dot_protos_dot_database__pb2.BoughtOrSold.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

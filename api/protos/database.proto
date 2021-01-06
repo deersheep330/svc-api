@@ -17,6 +17,9 @@ service Database {
   rpc insert_twse_over_bought(BoughtOrSold) returns (RowCount);
   rpc insert_twse_over_sold(BoughtOrSold) returns (RowCount);
 
+  rpc query_twse_over_bought_by_date(google.protobuf.Timestamp) returns (stream BoughtOrSold);
+  rpc query_twse_over_sold_by_date(google.protobuf.Timestamp) returns (stream BoughtOrSold);
+
   rpc insert_fugle_over_bought(BoughtOrSold) returns (RowCount);
   rpc insert_fugle_over_sold(BoughtOrSold) returns (RowCount);
 

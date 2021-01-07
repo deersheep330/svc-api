@@ -137,7 +137,7 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
 
     def query_twse_over_bought_by_date(self, request, context):
         session = start_session(self.engine)
-        date = None if is_timestamp_null(request.date) else request.date.ToDatetime().date()
+        date = None if is_timestamp_null(request) else request.ToDatetime().date()
         try:
             twse_over_boughts = session.query(TwseOverBought).filter_by(date=date).all()
             for item in twse_over_boughts:
@@ -157,7 +157,7 @@ class DatabaseServer(database_pb2_grpc.DatabaseServicer):
 
     def query_twse_over_sold_by_date(self, request, context):
         session = start_session(self.engine)
-        date = None if is_timestamp_null(request.date) else request.date.ToDatetime().date()
+        date = None if is_timestamp_null(request) else request.ToDatetime().date()
         try:
             twse_over_solds = session.query(TwseOverSold).filter_by(date=date).all()
             for item in twse_over_solds:

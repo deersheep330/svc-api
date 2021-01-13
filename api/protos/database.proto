@@ -11,22 +11,31 @@ service Database {
   rpc upsert_stocks(stream Stock) returns (RowCount);
 
   rpc insert_ptt_trend(TrendWithDefaultDate) returns (RowCount);
+  rpc query_ptt_trend_by_date(google.protobuf.Timestamp) returns (stream TrendResponse);
 
   rpc insert_reunion_trend(TrendWithDefaultDate) returns (RowCount);
+  rpc query_reunion_trend_by_date(google.protobuf.Timestamp) returns (stream TrendResponse);
 
   rpc insert_twse_over_bought(BoughtOrSold) returns (RowCount);
   rpc insert_twse_over_sold(BoughtOrSold) returns (RowCount);
 
-  rpc query_twse_over_bought_by_date(google.protobuf.Timestamp) returns (stream BoughtOrSold);
-  rpc query_twse_over_sold_by_date(google.protobuf.Timestamp) returns (stream BoughtOrSold);
+  rpc query_twse_over_bought_by_date(google.protobuf.Timestamp) returns (stream BoughtOrSoldResponse);
+  rpc query_twse_over_sold_by_date(google.protobuf.Timestamp) returns (stream BoughtOrSoldResponse);
 
   rpc insert_fugle_over_bought(BoughtOrSold) returns (RowCount);
   rpc insert_fugle_over_sold(BoughtOrSold) returns (RowCount);
 
+  rpc query_fugle_over_bought_by_date(google.protobuf.Timestamp) returns (stream BoughtOrSoldResponse);
+  rpc query_fugle_over_sold_by_date(google.protobuf.Timestamp) returns (stream BoughtOrSoldResponse);
+
   rpc insert_twse_open_price(StockPrice) returns (RowCount);
   rpc insert_twse_close_price(StockPrice) returns (RowCount);
 
+  rpc query_twse_open_price_by_date(google.protobuf.Timestamp) returns (stream StockPriceResponse);
+  rpc query_twse_close_price_by_date(google.protobuf.Timestamp) returns (stream StockPriceResponse);
+
   rpc insert_us_close_price(StockPrice) returns (RowCount);
+  rpc query_us_close_price_by_date(google.protobuf.Timestamp) returns (stream StockPriceResponse);
 
 }
 
@@ -58,4 +67,25 @@ message StockPrice {
   string symbol = 1;
   google.protobuf.Timestamp date = 2;
   float price = 3;
+}
+
+message TrendResponse {
+  string symbol = 1;
+  string name = 2;
+  google.protobuf.Timestamp date = 3;
+  uint32 popularity = 4;
+}
+
+message BoughtOrSoldResponse {
+  string symbol = 1;
+  string name = 2;
+  google.protobuf.Timestamp date = 3;
+  int32 quantity = 4;
+}
+
+message StockPriceResponse {
+  string symbol = 1;
+  string name = 2;
+  google.protobuf.Timestamp date = 3;
+  float price = 4;
 }

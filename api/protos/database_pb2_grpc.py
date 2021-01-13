@@ -36,10 +36,20 @@ class DatabaseStub(object):
                 request_serializer=api_dot_protos_dot_database__pb2.TrendWithDefaultDate.SerializeToString,
                 response_deserializer=api_dot_protos_dot_database__pb2.RowCount.FromString,
                 )
+        self.query_ptt_trend_by_date = channel.unary_stream(
+                '/Database/query_ptt_trend_by_date',
+                request_serializer=google_dot_protobuf_dot_timestamp__pb2.Timestamp.SerializeToString,
+                response_deserializer=api_dot_protos_dot_database__pb2.TrendResponse.FromString,
+                )
         self.insert_reunion_trend = channel.unary_unary(
                 '/Database/insert_reunion_trend',
                 request_serializer=api_dot_protos_dot_database__pb2.TrendWithDefaultDate.SerializeToString,
                 response_deserializer=api_dot_protos_dot_database__pb2.RowCount.FromString,
+                )
+        self.query_reunion_trend_by_date = channel.unary_stream(
+                '/Database/query_reunion_trend_by_date',
+                request_serializer=google_dot_protobuf_dot_timestamp__pb2.Timestamp.SerializeToString,
+                response_deserializer=api_dot_protos_dot_database__pb2.TrendResponse.FromString,
                 )
         self.insert_twse_over_bought = channel.unary_unary(
                 '/Database/insert_twse_over_bought',
@@ -54,12 +64,12 @@ class DatabaseStub(object):
         self.query_twse_over_bought_by_date = channel.unary_stream(
                 '/Database/query_twse_over_bought_by_date',
                 request_serializer=google_dot_protobuf_dot_timestamp__pb2.Timestamp.SerializeToString,
-                response_deserializer=api_dot_protos_dot_database__pb2.BoughtOrSold.FromString,
+                response_deserializer=api_dot_protos_dot_database__pb2.BoughtOrSoldResponse.FromString,
                 )
         self.query_twse_over_sold_by_date = channel.unary_stream(
                 '/Database/query_twse_over_sold_by_date',
                 request_serializer=google_dot_protobuf_dot_timestamp__pb2.Timestamp.SerializeToString,
-                response_deserializer=api_dot_protos_dot_database__pb2.BoughtOrSold.FromString,
+                response_deserializer=api_dot_protos_dot_database__pb2.BoughtOrSoldResponse.FromString,
                 )
         self.insert_fugle_over_bought = channel.unary_unary(
                 '/Database/insert_fugle_over_bought',
@@ -71,6 +81,16 @@ class DatabaseStub(object):
                 request_serializer=api_dot_protos_dot_database__pb2.BoughtOrSold.SerializeToString,
                 response_deserializer=api_dot_protos_dot_database__pb2.RowCount.FromString,
                 )
+        self.query_fugle_over_bought_by_date = channel.unary_stream(
+                '/Database/query_fugle_over_bought_by_date',
+                request_serializer=google_dot_protobuf_dot_timestamp__pb2.Timestamp.SerializeToString,
+                response_deserializer=api_dot_protos_dot_database__pb2.BoughtOrSoldResponse.FromString,
+                )
+        self.query_fugle_over_sold_by_date = channel.unary_stream(
+                '/Database/query_fugle_over_sold_by_date',
+                request_serializer=google_dot_protobuf_dot_timestamp__pb2.Timestamp.SerializeToString,
+                response_deserializer=api_dot_protos_dot_database__pb2.BoughtOrSoldResponse.FromString,
+                )
         self.insert_twse_open_price = channel.unary_unary(
                 '/Database/insert_twse_open_price',
                 request_serializer=api_dot_protos_dot_database__pb2.StockPrice.SerializeToString,
@@ -81,10 +101,25 @@ class DatabaseStub(object):
                 request_serializer=api_dot_protos_dot_database__pb2.StockPrice.SerializeToString,
                 response_deserializer=api_dot_protos_dot_database__pb2.RowCount.FromString,
                 )
+        self.query_twse_open_price_by_date = channel.unary_stream(
+                '/Database/query_twse_open_price_by_date',
+                request_serializer=google_dot_protobuf_dot_timestamp__pb2.Timestamp.SerializeToString,
+                response_deserializer=api_dot_protos_dot_database__pb2.StockPriceResponse.FromString,
+                )
+        self.query_twse_close_price_by_date = channel.unary_stream(
+                '/Database/query_twse_close_price_by_date',
+                request_serializer=google_dot_protobuf_dot_timestamp__pb2.Timestamp.SerializeToString,
+                response_deserializer=api_dot_protos_dot_database__pb2.StockPriceResponse.FromString,
+                )
         self.insert_us_close_price = channel.unary_unary(
                 '/Database/insert_us_close_price',
                 request_serializer=api_dot_protos_dot_database__pb2.StockPrice.SerializeToString,
                 response_deserializer=api_dot_protos_dot_database__pb2.RowCount.FromString,
+                )
+        self.query_us_close_price_by_date = channel.unary_stream(
+                '/Database/query_us_close_price_by_date',
+                request_serializer=google_dot_protobuf_dot_timestamp__pb2.Timestamp.SerializeToString,
+                response_deserializer=api_dot_protos_dot_database__pb2.StockPriceResponse.FromString,
                 )
 
 
@@ -115,7 +150,19 @@ class DatabaseServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def query_ptt_trend_by_date(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def insert_reunion_trend(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def query_reunion_trend_by_date(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -157,6 +204,18 @@ class DatabaseServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def query_fugle_over_bought_by_date(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def query_fugle_over_sold_by_date(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def insert_twse_open_price(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -169,7 +228,25 @@ class DatabaseServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def query_twse_open_price_by_date(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def query_twse_close_price_by_date(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def insert_us_close_price(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def query_us_close_price_by_date(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -198,10 +275,20 @@ def add_DatabaseServicer_to_server(servicer, server):
                     request_deserializer=api_dot_protos_dot_database__pb2.TrendWithDefaultDate.FromString,
                     response_serializer=api_dot_protos_dot_database__pb2.RowCount.SerializeToString,
             ),
+            'query_ptt_trend_by_date': grpc.unary_stream_rpc_method_handler(
+                    servicer.query_ptt_trend_by_date,
+                    request_deserializer=google_dot_protobuf_dot_timestamp__pb2.Timestamp.FromString,
+                    response_serializer=api_dot_protos_dot_database__pb2.TrendResponse.SerializeToString,
+            ),
             'insert_reunion_trend': grpc.unary_unary_rpc_method_handler(
                     servicer.insert_reunion_trend,
                     request_deserializer=api_dot_protos_dot_database__pb2.TrendWithDefaultDate.FromString,
                     response_serializer=api_dot_protos_dot_database__pb2.RowCount.SerializeToString,
+            ),
+            'query_reunion_trend_by_date': grpc.unary_stream_rpc_method_handler(
+                    servicer.query_reunion_trend_by_date,
+                    request_deserializer=google_dot_protobuf_dot_timestamp__pb2.Timestamp.FromString,
+                    response_serializer=api_dot_protos_dot_database__pb2.TrendResponse.SerializeToString,
             ),
             'insert_twse_over_bought': grpc.unary_unary_rpc_method_handler(
                     servicer.insert_twse_over_bought,
@@ -216,12 +303,12 @@ def add_DatabaseServicer_to_server(servicer, server):
             'query_twse_over_bought_by_date': grpc.unary_stream_rpc_method_handler(
                     servicer.query_twse_over_bought_by_date,
                     request_deserializer=google_dot_protobuf_dot_timestamp__pb2.Timestamp.FromString,
-                    response_serializer=api_dot_protos_dot_database__pb2.BoughtOrSold.SerializeToString,
+                    response_serializer=api_dot_protos_dot_database__pb2.BoughtOrSoldResponse.SerializeToString,
             ),
             'query_twse_over_sold_by_date': grpc.unary_stream_rpc_method_handler(
                     servicer.query_twse_over_sold_by_date,
                     request_deserializer=google_dot_protobuf_dot_timestamp__pb2.Timestamp.FromString,
-                    response_serializer=api_dot_protos_dot_database__pb2.BoughtOrSold.SerializeToString,
+                    response_serializer=api_dot_protos_dot_database__pb2.BoughtOrSoldResponse.SerializeToString,
             ),
             'insert_fugle_over_bought': grpc.unary_unary_rpc_method_handler(
                     servicer.insert_fugle_over_bought,
@@ -233,6 +320,16 @@ def add_DatabaseServicer_to_server(servicer, server):
                     request_deserializer=api_dot_protos_dot_database__pb2.BoughtOrSold.FromString,
                     response_serializer=api_dot_protos_dot_database__pb2.RowCount.SerializeToString,
             ),
+            'query_fugle_over_bought_by_date': grpc.unary_stream_rpc_method_handler(
+                    servicer.query_fugle_over_bought_by_date,
+                    request_deserializer=google_dot_protobuf_dot_timestamp__pb2.Timestamp.FromString,
+                    response_serializer=api_dot_protos_dot_database__pb2.BoughtOrSoldResponse.SerializeToString,
+            ),
+            'query_fugle_over_sold_by_date': grpc.unary_stream_rpc_method_handler(
+                    servicer.query_fugle_over_sold_by_date,
+                    request_deserializer=google_dot_protobuf_dot_timestamp__pb2.Timestamp.FromString,
+                    response_serializer=api_dot_protos_dot_database__pb2.BoughtOrSoldResponse.SerializeToString,
+            ),
             'insert_twse_open_price': grpc.unary_unary_rpc_method_handler(
                     servicer.insert_twse_open_price,
                     request_deserializer=api_dot_protos_dot_database__pb2.StockPrice.FromString,
@@ -243,10 +340,25 @@ def add_DatabaseServicer_to_server(servicer, server):
                     request_deserializer=api_dot_protos_dot_database__pb2.StockPrice.FromString,
                     response_serializer=api_dot_protos_dot_database__pb2.RowCount.SerializeToString,
             ),
+            'query_twse_open_price_by_date': grpc.unary_stream_rpc_method_handler(
+                    servicer.query_twse_open_price_by_date,
+                    request_deserializer=google_dot_protobuf_dot_timestamp__pb2.Timestamp.FromString,
+                    response_serializer=api_dot_protos_dot_database__pb2.StockPriceResponse.SerializeToString,
+            ),
+            'query_twse_close_price_by_date': grpc.unary_stream_rpc_method_handler(
+                    servicer.query_twse_close_price_by_date,
+                    request_deserializer=google_dot_protobuf_dot_timestamp__pb2.Timestamp.FromString,
+                    response_serializer=api_dot_protos_dot_database__pb2.StockPriceResponse.SerializeToString,
+            ),
             'insert_us_close_price': grpc.unary_unary_rpc_method_handler(
                     servicer.insert_us_close_price,
                     request_deserializer=api_dot_protos_dot_database__pb2.StockPrice.FromString,
                     response_serializer=api_dot_protos_dot_database__pb2.RowCount.SerializeToString,
+            ),
+            'query_us_close_price_by_date': grpc.unary_stream_rpc_method_handler(
+                    servicer.query_us_close_price_by_date,
+                    request_deserializer=google_dot_protobuf_dot_timestamp__pb2.Timestamp.FromString,
+                    response_serializer=api_dot_protos_dot_database__pb2.StockPriceResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -327,6 +439,23 @@ class Database(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def query_ptt_trend_by_date(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/Database/query_ptt_trend_by_date',
+            google_dot_protobuf_dot_timestamp__pb2.Timestamp.SerializeToString,
+            api_dot_protos_dot_database__pb2.TrendResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def insert_reunion_trend(request,
             target,
             options=(),
@@ -340,6 +469,23 @@ class Database(object):
         return grpc.experimental.unary_unary(request, target, '/Database/insert_reunion_trend',
             api_dot_protos_dot_database__pb2.TrendWithDefaultDate.SerializeToString,
             api_dot_protos_dot_database__pb2.RowCount.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def query_reunion_trend_by_date(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/Database/query_reunion_trend_by_date',
+            google_dot_protobuf_dot_timestamp__pb2.Timestamp.SerializeToString,
+            api_dot_protos_dot_database__pb2.TrendResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -390,7 +536,7 @@ class Database(object):
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/Database/query_twse_over_bought_by_date',
             google_dot_protobuf_dot_timestamp__pb2.Timestamp.SerializeToString,
-            api_dot_protos_dot_database__pb2.BoughtOrSold.FromString,
+            api_dot_protos_dot_database__pb2.BoughtOrSoldResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -407,7 +553,7 @@ class Database(object):
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/Database/query_twse_over_sold_by_date',
             google_dot_protobuf_dot_timestamp__pb2.Timestamp.SerializeToString,
-            api_dot_protos_dot_database__pb2.BoughtOrSold.FromString,
+            api_dot_protos_dot_database__pb2.BoughtOrSoldResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -446,6 +592,40 @@ class Database(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def query_fugle_over_bought_by_date(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/Database/query_fugle_over_bought_by_date',
+            google_dot_protobuf_dot_timestamp__pb2.Timestamp.SerializeToString,
+            api_dot_protos_dot_database__pb2.BoughtOrSoldResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def query_fugle_over_sold_by_date(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/Database/query_fugle_over_sold_by_date',
+            google_dot_protobuf_dot_timestamp__pb2.Timestamp.SerializeToString,
+            api_dot_protos_dot_database__pb2.BoughtOrSoldResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def insert_twse_open_price(request,
             target,
             options=(),
@@ -480,6 +660,40 @@ class Database(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def query_twse_open_price_by_date(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/Database/query_twse_open_price_by_date',
+            google_dot_protobuf_dot_timestamp__pb2.Timestamp.SerializeToString,
+            api_dot_protos_dot_database__pb2.StockPriceResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def query_twse_close_price_by_date(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/Database/query_twse_close_price_by_date',
+            google_dot_protobuf_dot_timestamp__pb2.Timestamp.SerializeToString,
+            api_dot_protos_dot_database__pb2.StockPriceResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def insert_us_close_price(request,
             target,
             options=(),
@@ -493,5 +707,22 @@ class Database(object):
         return grpc.experimental.unary_unary(request, target, '/Database/insert_us_close_price',
             api_dot_protos_dot_database__pb2.StockPrice.SerializeToString,
             api_dot_protos_dot_database__pb2.RowCount.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def query_us_close_price_by_date(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/Database/query_us_close_price_by_date',
+            google_dot_protobuf_dot_timestamp__pb2.Timestamp.SerializeToString,
+            api_dot_protos_dot_database__pb2.StockPriceResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
